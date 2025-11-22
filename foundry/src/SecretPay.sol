@@ -138,6 +138,10 @@ contract SecretPay{
 
   }
 
+    // Our refundTransfer function has a critical issue (the one we used in the tutorial, i have attached the corrected one below in comments).
+    // Refund function should not be payable, since sender shouldn’t send ETH to claim a refund. 
+    // We did not refund the transfer amount stored in the contract, but instead we  incorrectly used msg.value, which is the ETH the sender sends during the refund call.
+    // But msg.value will always be 0, because the sender is not supposed to send ETH when requesting a refund.
    function refundTransfer(uint256 _transferId) public payable {
         Transfer storage transfer = transfers[_transferId];
 
@@ -147,11 +151,29 @@ contract SecretPay{
         require(block.timestamp >=transfer.deadline, "Deadline has not passed yet."); 
 
         transfer.claimed = true;
-        uint256 amount = msg.value;
+        uint256 amount = msg.value; 
         
         payable(transfer.sender).transfer(amount);
 
         emit TransferRefunded(_transferId, transfer.sender, amount);
 
   }
+    // Correct Refund Transfer Function (Have you seen the differences between the two refund transfer function.. If No.. look more closely)
+    // function refundTransfer(uint256 _transferId) public {
+    //     Transfer storage transfer = transfers[_transferId];
+
+    //     require(transfer.amount > 0, "Transfer does not exist.");
+    //     require(!transfer.claimed, "Already Claimed");
+    //     require(msg.sender == transfer.sender, "Not the sender");
+    //     require(block.timestamp >= transfer.deadline, "Deadline has not passed yet."); 
+
+    //     transfer.claimed = true;   
+    //     uint256 amount = transfer.amount;
+    //     transfer.amount = 0; 
+
+    //     payable(transfer.sender).transfer(amount);
+
+    //     emit TransferRefunded(_transferId, transfer.sender, amount);
+    // }
+
 }
