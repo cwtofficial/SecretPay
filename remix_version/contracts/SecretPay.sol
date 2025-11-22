@@ -113,11 +113,11 @@ contract SecretPay{
         transferCount++;
     }
 
-  function claimTransfer(uint256 _transferId, string memory _password) public{
+  function claimTransfer(uint256 _transferId, string memory _password) public transferExists(_transferId) notClaimed(_transferId) payable {
     // GET THE TRANSFER
     Transfer storage transfer = transfers[_transferId];
-    // if the transfer exist
-    require(transfer.amount > 0, "Transfer does not exist.");
+    // // if the transfer exist
+    // require(transfer.amount > 0, "Transfer does not exist.");
     //if it has not been claimed
     require(!transfer.claimed, "Already Claimed");
     // if the caller (msg.sender) is the intended recipient
@@ -138,20 +138,50 @@ contract SecretPay{
 
   }
 
-   function refundTransfer(uint256 _transferId) public payable {
+   function refundTransfer(uint256 _transferId) public transferExists(_transferId) notClaimed(_transferId) payable {
         Transfer storage transfer = transfers[_transferId];
 
-        require(transfer.amount > 0, "Transfer does not exist.");
-        require(!transfer.claimed, "Already Claimed");
+        // require(transfer.amount > 0, "Transfer does not exist.");
+        // require(!transfer.claimed, "Already Claimed");
         require(msg.sender == transfer.sender, "Not the sender");
         require(block.timestamp >=transfer.deadline, "Deadline has not passed yet."); 
 
         transfer.claimed = true;
         uint256 amount = msg.value;
-        
+
         payable(transfer.sender).transfer(amount);
 
         emit TransferRefunded(_transferId, transfer.sender, amount);
 
+  }
+
+  modifier transferExists(uint256 _transferId){
+    require(transfers[_transferId].amount > 0, "Transfer does not exist.");
+    _;
+  }
+
+   modifier notClaimed(uint256 _transferId){
+    require(!transfers[_transferId].claimed, "Transfer Already Claimed.");
+    _;
+  }
+
+    modifier onlyRecipient(uint256 _transferId){
+    require( msg.sender == transfers[_transferId].recipient, "Not the recipient");
+    _;
+  }
+
+  modifier onlySender(uint256 _transferId){
+    require( msg.sender == transfers[_transferId].sender, "Not the sender");
+    _;
+  }
+
+  modifier beforeDeadline(uint256 _transferId){
+    require(block.timestamp < transfers[_transferId].deadline, "Not the sender");
+    _;
+  }
+
+  modifier afterDeadline(uint256 _transferId){
+    require(block.timestamp >= transfers[_transferId].deadline, "Not the sender");
+    _;
   }
 }
