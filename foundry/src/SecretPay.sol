@@ -158,6 +158,7 @@ contract SecretPay{
         emit TransferRefunded(_transferId, transfer.sender, amount);
 
   }
+  
     // Correct Refund Transfer Function (Have you seen the differences between the two refund transfer function.. If No.. look more closely)
     // function refundTransfer(uint256 _transferId) public {
     //     Transfer storage transfer = transfers[_transferId];

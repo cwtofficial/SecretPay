@@ -1,4 +1,4 @@
-# 🔐 SecretPay - Password-Protected ETH Transfers
+# SecretPay - Password-Protected ETH Transfers
 
 ![Solidity](https://img.shields.io/badge/Solidity-^0.8.0-363636?style=for-the-badge&logo=solidity)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
@@ -22,7 +22,6 @@ A beginner-friendly Solidity tutorial that teaches you how to build a decentrali
 - [Tutorial Breakdown](#tutorial-breakdown)
 - [Smart Contract Overview](#smart-contract-overview)
 - [Deployment Guide](#deployment-guide)
-- [Frontend Integration (Optional)](#frontend-integration-optional)
 - [Security Considerations](#security-considerations)
 - [Testing](#testing)
 - [Gas Optimization](#gas-optimization)
@@ -128,11 +127,6 @@ Reward: 0.1 ETH locked with password found at end of level
 - 🔵 **MetaMask wallet** (we'll set up together in tutorial)
 - 🔵 **Test ETH** (free from Sepolia faucet)
 
-### Optional (for frontend)
-
-- 🔵 **Node.js** (v16 or higher)
-- 🔵 **React knowledge** (basic understanding)
-
 **No blockchain experience required!** We teach everything from scratch.
 
 ---
@@ -173,56 +167,15 @@ Reward: 0.1 ETH locked with password found at end of level
 
 ```bash
 # Clone the repository
-git clone https://github.com/CodeWithTy/secretpay-tutorial.git
+git clone https://github.com/cwtofficial/SecretPay.git
 cd secretpay-tutorial
-
-# Install dependencies (optional - for frontend)
-cd frontend
-npm install
-
-# Run frontend (optional)
-npm run dev
-```
-
----
-
-## 📁 Project Structure
-
-```
-secretpay-tutorial/
-├── contracts/
-│   ├── SecretPay.sol              # Main smart contract
-│   ├── SecretPay-starter.sol      # Starter template for students
-│   └── SecretPay-commented.sol    # Heavily commented version
-├── frontend/ (optional)
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── CreateTransfer.jsx
-│   │   │   ├── ClaimTransfer.jsx
-│   │   │   └── TransferList.jsx
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   ├── package.json
-│   └── vite.config.js
-├── test/
-│   └── SecretPay.test.js          # Smart contract tests
-├── scripts/
-│   ├── deploy.js                  # Deployment script
-│   └── interact.js                # Interaction examples
-├── docs/
-│   ├── tutorial-landing.html      # Tutorial landing page
-│   ├── TUTORIAL.md                # Step-by-step written guide
-│   └── SECURITY.md                # Security best practices
-├── .env.example                   # Environment variables template
-├── README.md                      # This file
-└── LICENSE
 ```
 
 ---
 
 ## 📚 Tutorial Breakdown
 
-### **Part 1: Solidity Fundamentals** (20 minutes)
+### **Part 1: Solidity Fundamentals**
 
 - Introduction to Smart Contracts & Solidity
 - Setting up Remix IDE
@@ -230,7 +183,7 @@ secretpay-tutorial/
 - Data types: address, uint, bool
 - Your first "Hello World" contract
 
-### **Part 2: Building the Core** (35 minutes)
+### **Part 2: Building the Core**
 
 - Designing the Transfer struct
 - Using mappings for storage
@@ -239,7 +192,7 @@ secretpay-tutorial/
 - Password hashing with `keccak256`
 - Time-based logic with `block.timestamp`
 
-### **Part 3: Claim & Refund Logic** (30 minutes)
+### **Part 3: Claim & Refund Logic**
 
 - Building the `claimTransfer()` function
 - Password verification
@@ -248,7 +201,7 @@ secretpay-tutorial/
 - Access control implementation
 - Error handling with `require()`
 
-### **Part 4: Security & Events** (25 minutes)
+### **Part 4: Security & Events**
 
 - Creating and emitting events
 - Building custom modifiers
@@ -256,7 +209,7 @@ secretpay-tutorial/
 - Checks-Effects-Interactions pattern
 - Gas optimization techniques
 
-### **Part 5: Testing & Deployment** (25 minutes)
+### **Part 5: Testing & Deployment**
 
 - Testing in Remix with multiple accounts
 - Setting up MetaMask
@@ -264,17 +217,6 @@ secretpay-tutorial/
 - Deploying to Sepolia testnet
 - Verifying contract on Etherscan
 - Interacting via Etherscan
-
-### **Part 6: React Frontend** (30-35 minutes) - Optional
-
-- React setup with Vite
-- Installing ethers.js/wagmi
-- Wallet connection
-- Building transfer forms
-- Displaying active transfers
-- Transaction handling
-
-**Total Time:** 2 hours 15 minutes (core) + 30 minutes (frontend)
 
 ---
 
@@ -404,101 +346,6 @@ event TransferRefunded(
 4. Click "Contract" → "Verify and Publish"
 5. Follow verification steps
 
-### Deploy via Hardhat (Advanced)
-
-```bash
-# Install Hardhat
-npm install --save-dev hardhat
-
-# Create Hardhat project
-npx hardhat
-
-# Deploy script
-npx hardhat run scripts/deploy.js --network sepolia
-```
-
-**Deploy Script Example:**
-
-```javascript
-const hre = require('hardhat');
-
-async function main() {
-  const SecretPay = await hre.ethers.getContractFactory('SecretPay');
-  const secretPay = await SecretPay.deploy();
-  await secretPay.deployed();
-
-  console.log('SecretPay deployed to:', secretPay.address);
-}
-
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
-```
-
----
-
-## 💻 Frontend Integration (Optional)
-
-### Setup React + Vite
-
-```bash
-npm create vite@latest secretpay-frontend -- --template react
-cd secretpay-frontend
-npm install ethers wagmi viem
-```
-
-### Connect Wallet Example
-
-```javascript
-import { useAccount, useConnect, useDisconnect } from 'wagmi';
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
-
-function WalletConnect() {
-  const { address, isConnected } = useAccount();
-  const { connect } = useConnect({
-    connector: new MetaMaskConnector(),
-  });
-  const { disconnect } = useDisconnect();
-
-  if (isConnected) {
-    return (
-      <div>
-        <p>Connected: {address}</p>
-        <button onClick={() => disconnect()}>Disconnect</button>
-      </div>
-    );
-  }
-
-  return <button onClick={() => connect()}>Connect Wallet</button>;
-}
-```
-
-### Create Transfer Example
-
-```javascript
-import { useContractWrite } from 'wagmi';
-import { parseEther } from 'viem';
-
-function CreateTransfer() {
-  const { write } = useContractWrite({
-    address: 'YOUR_CONTRACT_ADDRESS',
-    abi: SecretPayABI,
-    functionName: 'createTransfer',
-  });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    write({
-      args: [recipientAddress, password, deadline],
-      value: parseEther(amount),
-    });
-  };
-
-  return <form onSubmit={handleSubmit}>{/* Form fields */}</form>;
-}
-```
-
 ---
 
 ## 🔒 Security Considerations
@@ -547,7 +394,7 @@ function CreateTransfer() {
    ⚠️ Consider using `call()` for production
    ```
 
-### 🛡️ Production Improvements
+### Production Improvements
 
 For production use, consider:
 
@@ -583,98 +430,6 @@ For production use, consider:
 3. Call refund as sender
 4. Verify sender received ETH back
 ```
-
-### Automated Testing (Hardhat)
-
-```javascript
-const { expect } = require('chai');
-const { ethers } = require('hardhat');
-
-describe('SecretPay', function () {
-  let secretPay;
-  let owner, recipient;
-
-  beforeEach(async function () {
-    [owner, recipient] = await ethers.getSigners();
-    const SecretPay = await ethers.getContractFactory('SecretPay');
-    secretPay = await SecretPay.deploy();
-  });
-
-  it('Should create a transfer', async function () {
-    await secretPay.createTransfer(recipient.address, 'password123', 86400, {
-      value: ethers.utils.parseEther('0.1'),
-    });
-
-    const transfer = await secretPay.transfers(0);
-    expect(transfer.amount).to.equal(ethers.utils.parseEther('0.1'));
-  });
-
-  it('Should allow claim with correct password', async function () {
-    await secretPay.createTransfer(recipient.address, 'password123', 86400, {
-      value: ethers.utils.parseEther('0.1'),
-    });
-
-    await secretPay.connect(recipient).claimTransfer(0, 'password123');
-    const transfer = await secretPay.transfers(0);
-    expect(transfer.claimed).to.be.true;
-  });
-
-  it('Should reject claim with wrong password', async function () {
-    await secretPay.createTransfer(recipient.address, 'password123', 86400, {
-      value: ethers.utils.parseEther('0.1'),
-    });
-
-    await expect(
-      secretPay.connect(recipient).claimTransfer(0, 'wrongpassword'),
-    ).to.be.revertedWith('Incorrect password');
-  });
-});
-```
-
----
-
-## ⚡ Gas Optimization
-
-### Current Implementation
-
-- **createTransfer:** ~90,000 gas
-- **claimTransfer:** ~45,000 gas
-- **refundTransfer:** ~35,000 gas
-
-### Optimization Tips
-
-1. **Use uint256 instead of uint8**
-
-   ```solidity
-   // Less gas (counterintuitively!)
-   uint256 public transferCount;
-   ```
-
-2. **Pack struct variables**
-
-   ```solidity
-   struct Transfer {
-       address sender;      // 20 bytes
-       address recipient;   // 20 bytes
-       uint96 amount;       // 12 bytes (fits in same slot!)
-       // ... rest of struct
-   }
-   ```
-
-3. **Use events instead of storage**
-
-   ```solidity
-   // Don't store if you only need history
-   emit TransferCreated(id, sender, recipient, amount);
-   ```
-
-4. **Batch operations**
-   ```solidity
-   // Create multiple transfers in one transaction
-   function createMultipleTransfers(...) external payable {
-       // Saves deployment overhead
-   }
-   ```
 
 ---
 
@@ -814,15 +569,13 @@ We welcome contributions! Here's how you can help:
 
 ### Community
 
-- [CodeWithTy Discord](https://discord.com/invite/THq8mTmX) - Get help with the tutorial
+- [CWT Discord](https://discord.com/invite/THq8mTmX) - Get help with the tutorial
 
 ---
 
 ## 📊 Project Stats
 
 - ⭐ **Difficulty:** Beginner
-- ⏱️ **Time to Complete:** 2-2.5 hours
-- 📝 **Lines of Code:** ~150 (contract only)
 - 🔧 **Technologies:** Solidity 0.8.0+, Remix, MetaMask
 - 🎯 **Concepts Covered:** 8 core Solidity patterns
 
@@ -848,12 +601,10 @@ By completing this tutorial, you will:
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ```
 MIT License
 
-Copyright (c) 2025 CodeWithTy
+Copyright (c) 2025 CWT
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -887,7 +638,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 ### Need Help?
 
 - 📺 **Watch the video tutorial:** [YouTube](https://youtube.com/@officialcwt)
-- 💬 **Join Discord:** [CodeWithTy Community](https://discord.com/invite/THq8mTmX)
+- 💬 **Join Discord:** [CWT Community](https://discord.com/invite/THq8mTmX)
 - 🐛 **Report bugs:** [GitHub Issues](https://github.com/cwtofficial/secretpay/issues)
 - 📧 **Email:** hello@cwt.build
 - 🌐 **Website:** [cwt.build](https://cwt.build)
