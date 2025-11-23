@@ -344,11 +344,10 @@ If you encounter issues:
 
 After installation:
 
-1. Follow a Solidity tutorial
+1. Follow the tutorial
 2. Learn about smart contracts
-3. Deploy to testnets (Sepolia, Goerli)
-4. Build your first DeFi/NFT project
-5. Join the Web3 community!
+3. Deploy to testnets (Sepolia)
+4. Build the project.
 
 ---
 

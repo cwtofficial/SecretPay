@@ -87,6 +87,7 @@ contract SecretPay{
     function createTransfer(address _recipient, string memory _password, uint256 _duration) public payable{
          // VALIDATION
           require(msg.value > 0, "You must send ETH"); 
+          require(_recipient != address(0), "Invalid Recipient Address");
           require(bytes(_password).length > 0, "Password cannot be empty");
           require(_duration > 0, "Duration must be positive");
          // HASH THE PASSWORD
@@ -110,6 +111,7 @@ contract SecretPay{
             msg.value,
             deadline
         );
+        // transferCount = transferCount + 1 
         transferCount++;
     }
 
