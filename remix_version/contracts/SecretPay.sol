@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-contract SecretPay{
-    // STRUCTS => 
+contract SecretPay {
+    // STRUCTS =>
     // struct Product{
     //     string name;
     //     uint256 price;
@@ -24,7 +24,7 @@ contract SecretPay{
     //         });
     // }
 
-       // 0 : bob -> alice -> 100ETH
+    // 0 : bob -> alice -> 100ETH
 
     //To get the transfer sender at id 0
     // address transferSender = transfers[0].sender;
@@ -43,22 +43,22 @@ contract SecretPay{
         address indexed sender,
         address indexed recipient,
         uint256 amount,
-        uint256 deadline 
+        uint256 deadline
     );
 
-      event TransferClaimed(
+    event TransferClaimed(
         uint256 indexed transferId,
         address indexed recipient,
         uint256 amount
     );
 
-        event TransferRefunded(
+    event TransferRefunded(
         uint256 indexed transferId,
         address indexed sender,
         uint256 amount
     );
 
-    struct Transfer{
+    struct Transfer {
         address sender; // who sent the ETH
         address recipient; // who can claim it
         uint256 amount; // amount in WEI
@@ -70,7 +70,6 @@ contract SecretPay{
     uint256 public transferCount;
     mapping(uint256 => Transfer) public transfers;
 
- 
     // function recieveETH() public payable  {
     //    // msg.value => the amout of eth sent (in wei)
     //    uint256 amountSent = msg.value;
@@ -80,23 +79,27 @@ contract SecretPay{
 
     // }
 
-    constructor(){
+    constructor() {
         transferCount = 0;
     }
 
-    function createTransfer(address _recipient, string memory _password, uint256 _duration) public payable{
-         // VALIDATION
-          require(msg.value > 0, "You must send ETH"); 
-          require(bytes(_password).length > 0, "Password cannot be empty");
-          require(_duration > 0, "Duration must be positive");
-         // HASH THE PASSWORD
-          bytes32 passwordHash = keccak256(abi.encodePacked(_password)); //secret123  => 0x2344d
+    function createTransfer(
+        address _recipient,
+        string memory _password,
+        uint256 _duration
+    ) public payable {
+        // VALIDATION
+        require(msg.value > 0, "You must send ETH");
+        require(bytes(_password).length > 0, "Password cannot be empty");
+        require(_duration > 0, "Duration must be positive");
+        // HASH THE PASSWORD
+        bytes32 passwordHash = keccak256(abi.encodePacked(_password)); //secret123  => 0x2344d
         // CREATE A DEADLINE
-          uint256 deadline = block.timestamp + _duration; //=> 1763569676 + 86400 (24 hrs)
+        uint256 deadline = block.timestamp + _duration; //=> 1763569676 + 86400 (24 hrs)
         // STORED THE TRANSFER IN A MAPPING
         transfers[transferCount] = Transfer({
             sender: msg.sender,
-            recipient:_recipient,
+            recipient: _recipient,
             amount: msg.value,
             passwordHash: passwordHash,
             deadline: deadline,
@@ -113,38 +116,44 @@ contract SecretPay{
         transferCount++;
     }
 
-  function claimTransfer(uint256 _transferId, string memory _password) public transferExists(_transferId) notClaimed(_transferId) payable {
-    // GET THE TRANSFER
-    Transfer storage transfer = transfers[_transferId];
-    // // if the transfer exist
-    // require(transfer.amount > 0, "Transfer does not exist.");
-    //if it has not been claimed
-    require(!transfer.claimed, "Already Claimed");
-    // if the caller (msg.sender) is the intended recipient
-    require(msg.sender == transfer.recipient);
-  // if the duration is stil valid
-    require(block.timestamp < transfer.deadline, "Deadline passed");
-  // if the password matches (is correct)
-    bytes32 inputHash = keccak256(abi.encodePacked(_password));
-    require(inputHash == transfer.passwordHash, "Incorrect password");
-    // update state before transfer
+    function claimTransfer(
+        uint256 _transferId,
+        string memory _password
+    ) public payable transferExists(_transferId) notClaimed(_transferId) {
+        // GET THE TRANSFER
+        Transfer storage transfer = transfers[_transferId];
+        // // if the transfer exist
+        // require(transfer.amount > 0, "Transfer does not exist.");
+        //if it has not been claimed
+        require(!transfer.claimed, "Already Claimed");
+        // if the caller (msg.sender) is the intended recipient
+        require(msg.sender == transfer.recipient);
+        // if the duration is stil valid
+        require(block.timestamp < transfer.deadline, "Deadline passed");
+        // if the password matches (is correct)
+        bytes32 inputHash = keccak256(abi.encodePacked(_password));
+        require(inputHash == transfer.passwordHash, "Incorrect password");
+        // update state before transfer
 
-     transfer.claimed = true;
-    uint256 amount = transfer.amount;
-    payable(transfer.recipient).transfer(amount); // => 2100 gas // how we transfer eth
-   
+        transfer.claimed = true;
+        uint256 amount = transfer.amount;
+        payable(transfer.recipient).transfer(amount); // => 2100 gas // how we transfer eth
 
-    emit TransferClaimed(_transferId, transfer.recipient, amount);
+        emit TransferClaimed(_transferId, transfer.recipient, amount);
+    }
 
-  }
-
-   function refundTransfer(uint256 _transferId) public transferExists(_transferId) notClaimed(_transferId) payable {
+    function refundTransfer(
+        uint256 _transferId
+    ) public payable transferExists(_transferId) notClaimed(_transferId) {
         Transfer storage transfer = transfers[_transferId];
 
         // require(transfer.amount > 0, "Transfer does not exist.");
         // require(!transfer.claimed, "Already Claimed");
         require(msg.sender == transfer.sender, "Not the sender");
-        require(block.timestamp >=transfer.deadline, "Deadline has not passed yet."); 
+        require(
+            block.timestamp >= transfer.deadline,
+            "Deadline has not passed yet."
+        );
 
         transfer.claimed = true;
         uint256 amount = msg.value;
@@ -152,36 +161,44 @@ contract SecretPay{
         payable(transfer.sender).transfer(amount);
 
         emit TransferRefunded(_transferId, transfer.sender, amount);
+    }
 
-  }
+    modifier transferExists(uint256 _transferId) {
+        require(transfers[_transferId].amount > 0, "Transfer does not exist.");
+        _;
+    }
 
-  modifier transferExists(uint256 _transferId){
-    require(transfers[_transferId].amount > 0, "Transfer does not exist.");
-    _;
-  }
+    modifier notClaimed(uint256 _transferId) {
+        require(!transfers[_transferId].claimed, "Transfer Already Claimed.");
+        _;
+    }
 
-   modifier notClaimed(uint256 _transferId){
-    require(!transfers[_transferId].claimed, "Transfer Already Claimed.");
-    _;
-  }
+    modifier onlyRecipient(uint256 _transferId) {
+        require(
+            msg.sender == transfers[_transferId].recipient,
+            "Not the recipient"
+        );
+        _;
+    }
 
-    modifier onlyRecipient(uint256 _transferId){
-    require( msg.sender == transfers[_transferId].recipient, "Not the recipient");
-    _;
-  }
+    modifier onlySender(uint256 _transferId) {
+        require(msg.sender == transfers[_transferId].sender, "Not the sender");
+        _;
+    }
 
-  modifier onlySender(uint256 _transferId){
-    require( msg.sender == transfers[_transferId].sender, "Not the sender");
-    _;
-  }
+    modifier beforeDeadline(uint256 _transferId) {
+        require(
+            block.timestamp < transfers[_transferId].deadline,
+            "Not the sender"
+        );
+        _;
+    }
 
-  modifier beforeDeadline(uint256 _transferId){
-    require(block.timestamp < transfers[_transferId].deadline, "Not the sender");
-    _;
-  }
-
-  modifier afterDeadline(uint256 _transferId){
-    require(block.timestamp >= transfers[_transferId].deadline, "Not the sender");
-    _;
-  }
+    modifier afterDeadline(uint256 _transferId) {
+        require(
+            block.timestamp >= transfers[_transferId].deadline,
+            "Not the sender"
+        );
+        _;
+    }
 }
