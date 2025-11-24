@@ -140,7 +140,7 @@ contract SecretPay{
 
   }
 
-    // Our refundTransfer function has a critical issue (the one we used in the tutorial, i have attached the corrected one below in comments).
+    // Our refundTransfer function has a critical issue (the one we used in the tutorial, i have attached the corrected one below (the last function) in comments).
     // Refund function should not be payable, since sender shouldn’t send ETH to claim a refund. 
     // We did not refund the transfer amount stored in the contract, but instead we  incorrectly used msg.value, which is the ETH the sender sends during the refund call.
     // But msg.value will always be 0, because the sender is not supposed to send ETH when requesting a refund.
@@ -161,7 +161,7 @@ contract SecretPay{
 
   }
   
-    // Correct Refund Transfer Function (Have you seen the differences between the two refund transfer function.. If No.. look more closely)
+    // Correct Refund Transfer Function (Have you seen the differences between the two refund transfer function.. If No.. look more closely (once you have seen it - replace it with the one at the top))
     // function refundTransfer(uint256 _transferId) public {
     //     Transfer storage transfer = transfers[_transferId];
 
