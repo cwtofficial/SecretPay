@@ -231,6 +231,29 @@ contract SecretPayTest is Test{
     // So writing the refund tests will be a waste of time.
     // I want you to fix the refund function in our SecretPay contract, then come back and write the test..
 
+    // Quick sample of how the testRefundTransfet would look like (it would fail if you don't fix the issues in SecretPay.sol)
+    // function testRefundTransfer() public {
+    //     // Arrange
+    //     uint256 transferId = _createTransfer(alice, bob, PASSWORD, TRANSFER_AMOUNT, DURATION);
+    //     uint256 aliceBalanceBefore = alice.balance;
+        
+    //     // Time travel past deadline
+    //     vm.warp(block.timestamp + DURATION + 1);
+        
+    //     // Act
+    //     vm.prank(alice);
+    //     secretPay.refundTransfer(transferId);
+        
+    //     // Assert
+    //     uint256 aliceBalanceAfter = alice.balance;
+    //     assertEq(aliceBalanceAfter, aliceBalanceBefore + TRANSFER_AMOUNT, "Alice should receive refund");
+        
+    //     // Check transfer is marked as claimed (refunded)
+    //     (, , , , , bool claimed) = secretPay.transfers(transferId);
+    //     assertTrue(claimed, "Transfer should be marked as claimed");
+    // }
+    
+
     //CONGRATULATIONS AND WELCOME TO THE WORLD OF BLOCKCHAIN DEVELOPMENT. LOTS OF LOVE FROM HERE💕 
 
     // AAA -> Patttern (Arrange, Act, Assert)

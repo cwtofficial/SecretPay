@@ -158,7 +158,6 @@ contract SecretPay{
         payable(transfer.sender).transfer(amount);
 
         emit TransferRefunded(_transferId, transfer.sender, amount);
-
   }
   
     // Correct Refund Transfer Function (Have you seen the differences between the two refund transfer function.. If No.. look more closely (once you have seen it - replace it with the one at the top))
