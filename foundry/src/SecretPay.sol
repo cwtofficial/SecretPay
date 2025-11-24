@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 contract SecretPay {
-    // STRUCTS =>
+    // STRUCT =>
     // struct Product{
     //     string name;
     //     uint256 price;
