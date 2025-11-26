@@ -1,714 +1,316 @@
-# SecretPay - Password-Protected ETH Transfers
+# 🔐 SecretPay: Password-Protected ETH Transfers
 
-![Solidity](https://img.shields.io/badge/Solidity-^0.8.0-363636?style=for-the-badge&logo=solidity)
-![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
-![Beginner Friendly](https://img.shields.io/badge/Level-Beginner-blue?style=for-the-badge)
+[![Solidity](https://img.shields.io/badge/Solidity-0.8.28-363636?logo=solidity)](https://soliditylang.org/)
+[![Foundry](https://img.shields.io/badge/Built%20with-Foundry-orange)](https://book.getfoundry.sh/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Tests](https://img.shields.io/badge/Tests-Passing-brightgreen)]()
 
-A beginner-friendly Solidity tutorial that teaches you how to build a decentralized escrow smart contract with password protection. Send ETH with a secret password - only those who know the password can claim it!
+> A production-ready decentralized escrow smart contract where senders can transfer ETH to recipients locked behind a password. Recipients must know the secret password to claim their ETH. If unclaimed by the deadline, senders can withdraw their funds back.
 
-**Full Video Tutorial:** [Watch on YouTube](https://youtube.com/@officialcwt)  
-**Our Wwebsite:** [Visit CWT](https://cwt.build)
-
----
-
-## 📖 Table of Contents
-
-- [About](#about)
-- [Features](#features)
-- [Use Cases](#use-cases)
-- [Prerequisites](#prerequisites)
-- [Quick Start](#quick-start)
-- [Project Structure](#project-structure)
-- [Tutorial Breakdown](#tutorial-breakdown)
-- [Smart Contract Overview](#smart-contract-overview)
-- [Deployment Guide](#deployment-guide)
-- [Security Considerations](#security-considerations)
-- [Testing](#testing)
-- [Gas Optimization](#gas-optimization)
-- [Common Issues & Solutions](#common-issues--solutions)
-- [Contributing](#contributing)
-- [Resources](#resources)
-- [License](#license)
+**Built with ❤️ by [CWT (CWT)](https://cwt.build)**
 
 ---
 
-## 🎯 About
+## 🎯 What is SecretPay?
 
-**SecretPay** is an educational smart contract project designed to teach Solidity fundamentals through a practical, real-world application. Unlike typical token or NFT tutorials, this project covers:
+SecretPay is a Solidity-based smart contract that enables secure, password-protected Ethereum transfers with escrow functionality. Perfect for gifts, freelance payments, educational rewards, and gaming treasure hunts.
 
-- ✅ Handling ETH transactions
-- ✅ Cryptographic password hashing
-- ✅ Time-based escrow logic
-- ✅ Access control patterns
-- ✅ Event emission and logging
-- ✅ Security best practices
+### ✨ Key Features
 
-**Perfect for:** Developers with basic programming knowledge who want to learn blockchain development from scratch.
-
-**Time to Complete:** 2-2.5 hours (core tutorial) + 30 minutes (optional frontend)
-
----
-
-## ✨ Features
-
-### Core Functionality
-
-- **Password-Protected Transfers:** Lock ETH behind a secret password
-- **Claim Mechanism:** Recipients unlock funds with the correct password
-- **Automatic Refunds:** Senders can withdraw if unclaimed after deadline
-- **Multiple Transfers:** Support for unlimited concurrent transfers
-- **Event Tracking:** All actions emit events for off-chain monitoring
-
-### Security Features
-
-- **Hashed Passwords:** Uses `keccak256` for secure password storage
-- **Access Control:** Only authorized parties can execute specific functions
-- **Re-entrancy Protection:** Follows checks-effects-interactions pattern
-- **Time Locks:** Deadline-based refund mechanism
-
----
-
-## 💡 Use Cases
-
-### 1. **Crypto Gifts with Riddles** 🎁
-
-Send ETH with a riddle as the password. Perfect for birthdays, holidays, or special occasions.
-
-**Example:**
-
-```
-Password: "What has keys but no locks, space but no room?"
-Answer: "keyboard"
-```
-
-### 2. **Freelance Escrow** 💼
-
-Lock payment until project completion. The password acts as the delivery confirmation.
-
-**Flow:**
-
-1. Client creates transfer with agreed password
-2. Freelancer completes work, receives password
-3. Freelancer claims payment
-
-### 3. **Educational Rewards** 🎓
-
-Teachers can reward students who solve challenges correctly.
-
-**Example:**
-
-```
-Challenge: "Calculate 15% of 280"
-Password: "42"
-```
-
-### 4. **Gaming Treasure Hunts** 🎮
-
-Hide crypto rewards in games where players discover passwords through gameplay.
-
-**Example:**
-
-```
-Quest: Complete dungeon level 5
-Reward: 0.1 ETH locked with password found at end of level
-```
-
----
-
-## 📋 Prerequisites
-
-### Required
-
-- ✅ **Basic programming knowledge** (JavaScript, Python, or any language)
-- ✅ **Web browser** (Chrome, Firefox, or Brave)
-
-### Optional (for deployment)
-
-- 🔵 **MetaMask wallet** (we'll set up together in tutorial)
-- 🔵 **Test ETH** (free from Sepolia faucet)
-
-**No blockchain experience required!** We teach everything from scratch.
+- **🔒 Password Protection** - Transfers are secured with cryptographic hashing (keccak256)
+- **⏰ Time-Based Escrow** - Set custom deadlines for fund claims
+- **💸 Automatic Refunds** - Senders can reclaim funds after deadline expiry
+- **🔐 Security First** - Re-entrancy protection and comprehensive testing
+- **📊 Event Logging** - Full transparency with on-chain event emissions
+- **✅ 100% Test Coverage** - Professional test suite included
 
 ---
 
 ## 🚀 Quick Start
 
-### Option 1: Browser-Only (Recommended for Beginners)
+### Prerequisites
 
-1. **Open Remix IDE**
+- Basic programming knowledge (JavaScript, Python, or similar)
+- [Foundry](https://book.getfoundry.sh/getting-started/installation) installed
+- [MetaMask](https://metamask.io/) wallet (for testnet deployment)
+- Testnet ETH from [Sepolia Faucet](https://sepoliafaucet.com/)
 
-   ```
-   https://remix.ethereum.org
-   ```
-
-2. **Create New File**
-
-   - Click "Create New File" in file explorer
-   - Name it: `SecretPay.sol`
-
-3. **Copy Contract Code**
-
-   ```solidity
-   // Paste the contract code from /contracts/SecretPay.sol
-   ```
-
-4. **Compile**
-
-   - Go to "Solidity Compiler" tab
-   - Click "Compile SecretPay.sol"
-
-5. **Deploy & Test**
-   - Go to "Deploy & Run Transactions" tab
-   - Select "Remix VM (Shanghai)" environment
-   - Click "Deploy"
-   - Start testing with different accounts!
-
-### Option 2: Local Development
+### Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/cwtofficial/SecretPay.git
-cd secretpay-tutorial
+git clone https://github.com/cwtofficial/secretpay.git
+cd secretpay
+
+# Install dependencies
+forge install
+
+# Build the project
+forge build
 ```
 
----
+### Run Tests
 
-## 📚 Tutorial Breakdown
+```bash
+# Run all tests
+forge test
 
-### **Part 1: Solidity Fundamentals**
+# Run tests with detailed output
+forge test -vvvv
 
-- Introduction to Smart Contracts & Solidity
-- Setting up Remix IDE
-- Basic syntax: pragma, contract structure
-- Data types: address, uint, bool
-- Your first "Hello World" contract
+# Run tests with gas reporting
+forge test --gas-report
 
-### **Part 2: Building the Core**
-
-- Designing the Transfer struct
-- Using mappings for storage
-- Payable functions & accepting ETH
-- Creating the `createTransfer()` function
-- Password hashing with `keccak256`
-- Time-based logic with `block.timestamp`
-
-### **Part 3: Claim & Refund Logic**
-
-- Building the `claimTransfer()` function
-- Password verification
-- Sending ETH: `transfer()` vs `call()`
-- Building the `refundTransfer()` function
-- Access control implementation
-- Error handling with `require()`
-
-### **Part 4: Security & Events**
-
-- Creating and emitting events
-- Building custom modifiers
-- Re-entrancy attack prevention
-- Checks-Effects-Interactions pattern
-- Gas optimization techniques
-
-### **Part 5: Testing & Deployment**
-
-- Testing in Remix with multiple accounts
-- Setting up MetaMask
-- Getting testnet ETH
-- Deploying to Sepolia testnet
-- Verifying contract on Etherscan
-- Interacting via Etherscan
-
----
-
-## 🔧 Smart Contract Overview
-
-### Main Functions
-
-#### `createTransfer(address _recipient, string memory _password, uint256 _deadline)`
-
-Creates a new password-protected transfer.
-
-**Parameters:**
-
-- `_recipient`: Address that can claim the funds
-- `_password`: Secret password (will be hashed)
-- `_deadline`: Duration in seconds before refund is possible
-
-**Requirements:**
-
-- Must send ETH (value > 0)
-- Password cannot be empty
-- Deadline must be in the future
-
-**Example:**
-
-```javascript
-// Create transfer: 0.1 ETH, password "secret123", 7 days deadline
-createTransfer(
-  '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb',
-  'secret123',
-  604800, // 7 days in seconds
-);
+# Run specific test
+forge test --match-test testClaimTransferSuccess
 ```
-
-#### `claimTransfer(uint256 _transferId, string memory _password)`
-
-Claim funds by providing correct password.
-
-**Parameters:**
-
-- `_transferId`: ID of the transfer to claim
-- `_password`: Password to unlock funds
-
-**Requirements:**
-
-- Must be the recipient
-- Password must match
-- Deadline not yet passed
-- Transfer not already claimed
-
-**Example:**
-
-```javascript
-claimTransfer(0, 'secret123');
-```
-
-#### `refundTransfer(uint256 _transferId)`
-
-Refund unclaimed transfer after deadline.
-
-**Parameters:**
-
-- `_transferId`: ID of the transfer to refund
-
-**Requirements:**
-
-- Must be the sender
-- Deadline must have passed
-- Transfer not already claimed
-
-**Example:**
-
-```javascript
-refundTransfer(0);
-```
-
-### Events
-
-```solidity
-event TransferCreated(
-    uint256 indexed transferId,
-    address indexed sender,
-    address indexed recipient,
-    uint256 amount,
-    uint256 deadline
-);
-
-event TransferClaimed(
-    uint256 indexed transferId,
-    address indexed recipient,
-    uint256 amount
-);
-
-event TransferRefunded(
-    uint256 indexed transferId,
-    address indexed sender,
-    uint256 amount
-);
-```
-
----
-
-## 🌐 Deployment Guide
 
 ### Deploy to Sepolia Testnet
 
-#### Step 1: Get Testnet ETH
+```bash
+# Set environment variables
+export PRIVATE_KEY=your_private_key_here
+export SEPOLIA_RPC_URL=your_sepolia_rpc_url
 
-1. Visit [Sepolia Faucet](https://sepoliafaucet.com/)
-2. Connect your MetaMask wallet
-3. Request test ETH (wait 1-2 minutes)
-
-#### Step 2: Deploy via Remix
-
-1. Open Remix IDE
-2. Compile `SecretPay.sol`
-3. Go to "Deploy & Run Transactions"
-4. Select "Injected Provider - MetaMask"
-5. Click "Deploy"
-6. Confirm transaction in MetaMask
-
-#### Step 3: Verify on Etherscan
-
-1. Copy deployed contract address
-2. Go to [Sepolia Etherscan](https://sepolia.etherscan.io)
-3. Search for your contract
-4. Click "Contract" → "Verify and Publish"
-5. Follow verification steps
+# Deploy
+forge script script/DeploySecretPay.s.sol:DeploySecretPay \
+    --rpc-url $SEPOLIA_RPC_URL \
+    --private-key $PRIVATE_KEY \
+    --broadcast \
+    --verify
+```
 
 ---
 
-## 🔒 Security Considerations
+## 📚 How It Works
 
-### ✅ Implemented Security Features
+### 1️⃣ Create a Password-Protected Transfer
 
-1. **Password Hashing**
+```solidity
+// Sender creates a transfer with password "secret123"
+secretPay.createTransfer{value: 1 ether}(
+    receiverAddress,
+    keccak256(abi.encodePacked("secret123")),
+    7 days  // deadline
+);
+```
 
-   - Never stores plain text passwords
-   - Uses `keccak256` for one-way hashing
-   - Resistant to rainbow table attacks
+### 2️⃣ Recipient Claims with Correct Password
 
-2. **Re-entrancy Protection**
+```solidity
+// Receiver claims by providing the password
+secretPay.claimTransfer(transferId, "secret123");
+```
 
-   - Follows checks-effects-interactions pattern
-   - Updates state before external calls
-   - No known re-entrancy vulnerabilities
+### 3️⃣ Sender Refunds After Deadline (if unclaimed)
 
-3. **Access Control**
-   - Only recipient can claim
-   - Only sender can refund
-   - Time-based restrictions enforced
+```solidity
+// Sender reclaims funds after deadline passes
+secretPay.refundTransfer(transferId);
+```
 
-### ⚠️ Important Warnings
+---
 
-1. **Passwords are NOT Private**
+## 🏗️ Project Structure
 
-   ```
-   ⚠️ Anyone can see the password hash on-chain
-   ⚠️ If someone knows possible passwords, they can brute force
-   ⚠️ Don't use this for high-value transfers in production
-   ```
-
-2. **Block Timestamp Manipulation**
-
-   ```
-   ⚠️ Miners can manipulate timestamps by ~15 seconds
-   ⚠️ Don't rely on exact deadline precision
-   ⚠️ Use block numbers for critical timing
-   ```
-
-3. **Gas Limitations**
-   ```
-   ⚠️ `transfer()` has 2300 gas limit
-   ⚠️ May fail with smart contract recipients
-   ⚠️ Consider using `call()` for production
-   ```
-
-### Production Improvements
-
-For production use, consider:
-
-- **Commit-Reveal Scheme:** Two-step password submission
-- **Multi-Signature:** Require multiple parties to approve
-- **Upgradeable Contracts:** Use proxy patterns for bug fixes
-- **Professional Audit:** Get code reviewed by security experts
-- **Emergency Pause:** Add circuit breaker functionality
+```
+secretpay/
+├── src/
+│   └── SecretPay.sol          # Main smart contract
+├── test/
+│   └── SecretPay.t.sol        # Comprehensive test suite
+├── script/
+│   └── DeploySecretPay.s.sol  # Deployment script
+├── lib/                       # Foundry dependencies
+├── foundry.toml               # Foundry configuration
+└── README.md
+```
 
 ---
 
 ## 🧪 Testing
 
-### Manual Testing in Remix
+SecretPay includes a professional test suite covering:
 
-```solidity
-// Test Scenario 1: Successful Transfer & Claim
-1. Deploy contract with Account A
-2. Create transfer to Account B (0.1 ETH, password: "test123")
-3. Switch to Account B
-4. Claim transfer with password "test123"
-5. Verify Account B received ETH
+- ✅ **Happy Path Tests** - Successful transfers, claims, and refunds
+- ❌ **Failure Scenarios** - Wrong passwords, premature refunds, unauthorized access
+- 🔄 **Edge Cases** - Duplicate transfers, expired deadlines, zero amounts
+- 🛡️ **Security Tests** - Re-entrancy attack simulations
+- 📊 **Event Emissions** - Verifying all events are properly emitted
+- 🎲 **Fuzz Testing** - Random input validation
 
-// Test Scenario 2: Wrong Password
-1. Create transfer to Account C (0.1 ETH, password: "secret")
-2. Switch to Account C
-3. Try claiming with wrong password "wrong"
-4. Verify transaction reverts
+### Test Coverage
 
-// Test Scenario 3: Refund After Deadline
-1. Create transfer with 60 second deadline
-2. Wait 60 seconds
-3. Call refund as sender
-4. Verify sender received ETH back
+```bash
+# Generate coverage report
+forge coverage
+
+# View detailed coverage
+forge coverage --report lcov
 ```
 
 ---
 
-## 🐛 Common Issues & Solutions
+## 🔐 Security Features
 
-### Issue 1: "Transaction Reverted"
+### Password Hashing
+Passwords are never stored in plain text. SecretPay uses `keccak256` to hash passwords on-chain, ensuring security.
 
-**Cause:** Not sending enough ETH with `createTransfer()`
-
-**Solution:**
-
-```javascript
-// In Remix, set "Value" field before calling function
-// In ethers.js:
-await contract.createTransfer(recipient, password, deadline, {
-  value: ethers.utils.parseEther('0.1'),
-});
+```solidity
+bytes32 passwordHash = keccak256(abi.encodePacked(password));
 ```
 
-### Issue 2: "Incorrect Password"
+### Re-entrancy Protection
+Follows the Checks-Effects-Interactions pattern to prevent re-entrancy attacks:
 
-**Cause:** Password case sensitivity or extra spaces
+```solidity
+// 1. Checks
+require(transfer.isClaimed == false, "Already claimed");
 
-**Solution:**
+// 2. Effects
+transfer.isClaimed = true;
 
-```javascript
-// Passwords are case-sensitive!
-"Secret123" ≠ "secret123"
-
-// Trim spaces
-password.trim()
+// 3. Interactions
+payable(msg.sender).transfer(amount);
 ```
 
-### Issue 3: "Deadline Not Passed"
+### Access Control
+Strict validation ensures only authorized parties can perform actions:
+- Only the designated receiver can claim funds
+- Only the original sender can request refunds
+- Refunds only allowed after deadline expiry
 
-**Cause:** Trying to refund before deadline
+---
 
-**Solution:**
+## 🎓 Educational Tutorial
 
-```javascript
-// Check current time
-const now = Math.floor(Date.now() / 1000);
-const deadline = await contract.transfers(0).deadline;
-console.log(`Wait ${deadline - now} more seconds`);
+This project is part of a comprehensive **7-part tutorial series** covering:
+
+1. **Solidity Fundamentals** - Syntax, state variables, data types
+2. **Core Contract Structure** - Structs, mappings, payable functions
+3. **Claim & Refund Logic** - Password verification, ETH transfers
+4. **Events & Security** - Event emissions, modifiers, best practices
+5. **Professional Setup** - Foundry installation and project structure
+6. **Deployment & Verification** - Testnet deployment, Etherscan verification
+7. **Professional Testing** - Comprehensive test suite with Foundry
+
+### 📺 Watch the Full Tutorial
+
+[👉 Watch on YouTube - CWT](https://youtube.com/@officialcwt)
+
+---
+
+## 💡 Real-World Use Cases
+
+| Use Case | Description |
+|----------|-------------|
+| 🎁 **Crypto Gifts with Riddles** | Send ETH with a fun riddle as the password |
+| 💼 **Freelance Escrow** | Release payment when work is completed |
+| 🎓 **Educational Rewards** | Students earn crypto by solving challenges |
+| 🎮 **Gaming Treasure Hunts** | Hide crypto rewards in game quests |
+| 💝 **Birthday Surprises** | Send crypto gifts that unlock on a specific date |
+| 🤝 **Conditional Payments** | Release funds when conditions are met |
+
+---
+
+## 🛠️ Built With Foundry
+
+**Foundry** is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.
+
+### Foundry Tools Used:
+
+- **Forge** - Ethereum testing framework (like Truffle, Hardhat)
+- **Cast** - Swiss army knife for interacting with EVM smart contracts
+- **Anvil** - Local Ethereum node for development
+- **Chisel** - Fast Solidity REPL
+
+### Useful Commands
+
+```bash
+# Compile contracts
+forge build
+
+# Run tests
+forge test
+
+# Format code
+forge fmt
+
+# Gas snapshots
+forge snapshot
+
+# Start local node
+anvil
+
+# Interact with contracts
+cast <subcommand>
+
+# Help
+forge --help
+anvil --help
+cast --help
 ```
 
-### Issue 4: "Not the Recipient"
+---
 
-**Cause:** Wrong account trying to claim
+## 📖 Documentation
 
-**Solution:**
-
-```javascript
-// Switch MetaMask account to recipient address
-// Or in Remix, select correct account from dropdown
-```
+- [Foundry Book](https://book.getfoundry.sh/)
+- [Solidity Documentation](https://docs.soliditylang.org/)
+- [Ethereum Development Docs](https://ethereum.org/en/developers/docs/)
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions! Here's how you can help:
+Contributions are welcome! Feel free to open issues or submit pull requests.
 
-### Types of Contributions
-
-- 🐛 Bug fixes
-- ✨ New features
-- 📖 Documentation improvements
-- 🎨 UI/UX enhancements
-- 🧪 Additional tests
-- 🌍 Translations
-
-### How to Contribute
-
-1. **Fork the repository**
-
-   ```bash
-   git clone https://github.com/cwtofficial/SecretPay.git
-   ```
-
-2. **Create a feature branch**
-
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
-
-3. **Make your changes**
-
-   ```bash
-   # Edit files
-   git add .
-   git commit -m "Add amazing feature"
-   ```
-
-4. **Push to your fork**
-
-   ```bash
-   git push origin feature/amazing-feature
-   ```
-
-5. **Open a Pull Request**
-   - Go to original repository
-   - Click "New Pull Request"
-   - Describe your changes
-
-### Code Style
-
-- Use 4 spaces for indentation
-- Follow Solidity style guide
-- Comment complex logic
-- Write descriptive variable names
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ---
 
-## 📚 Resources
+## 📄 License
 
-### Official Documentation
-
-- [Solidity Docs](https://docs.soliditylang.org/)
-- [Remix IDE](https://remix.ethereum.org/)
-- [Ethers.js Docs](https://docs.ethers.org/)
-- [MetaMask Docs](https://docs.metamask.io/)
-
-### Learning Resources
-
-- [CryptoZombies](https://cryptozombies.io/) - Interactive Solidity tutorial
-- [Solidity by Example](https://solidity-by-example.org/) - Code examples
-- [OpenZeppelin](https://docs.openzeppelin.com/) - Secure contract templates
-- [Ethereum.org](https://ethereum.org/en/developers/) - Developer portal
-
-### Tools
-
-- [Remix IDE](https://remix.ethereum.org/) - Browser-based IDE
-- [Hardhat](https://hardhat.org/) - Development environment
-- [Etherscan](https://etherscan.io/) - Blockchain explorer
-- [Sepolia Faucet](https://sepoliafaucet.com/) - Get test ETH
-
-### Community
-
-- [CWT Discord](https://discord.com/invite/THq8mTmX) - Get help with the tutorial
+This project is licensed under the CWT License.
 
 ---
 
-## 📊 Project Stats
+## 🌟 Support the Project
 
-- ⭐ **Difficulty:** Beginner
-- 🔧 **Technologies:** Solidity 0.8.0+, Remix, MetaMask
-- 🎯 **Concepts Covered:** 8 core Solidity patterns
+If you found this project helpful:
 
----
-
-## 🎓 What You'll Learn
-
-By completing this tutorial, you will:
-
-- ✅ Understand how smart contracts work
-- ✅ Write, compile, and deploy Solidity code
-- ✅ Handle cryptocurrency transactions (ETH)
-- ✅ Implement cryptographic hashing
-- ✅ Build time-based escrow logic
-- ✅ Create access control systems
-- ✅ Emit and listen to events
-- ✅ Follow security best practices
-- ✅ Deploy to live testnet
-- ✅ Interact with contracts via Etherscan
-- ✅ (Optional) Build React dApp frontend
+- ⭐ Star this repository
+- 📺 [Subscribe to CWT on YouTube](https://youtube.com/@officialcwt)
+- 🐦 Follow on Twitter [@CWT](https://twitter.com/cwtofficial_)
+- 🌐 Visit [CWT.build](https://cwt.build) for more projects
 
 ---
 
-## 📝 License
+## 📞 Contact & Support
 
-```
-MIT License
+**Built by CWT (CWT)**
 
-Copyright (c) 2025 CWT
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-```
+- 🌐 Website: [cwt.build](https://cwt.build)
+- 📺 YouTube: [@officialcwt](https://youtube.com/@officialcwt)
+- 💼 GitHub: [@cwtofficial](https://github.com/cwtofficial)
+- 📧 Email: contact@cwt.build
 
 ---
 
-## 🙏 Acknowledgments
+## ⚠️ Disclaimer
 
-- **Ethereum Foundation** - For building the blockchain
-- **OpenZeppelin** - For security best practices
-- **Remix Team** - For the amazing IDE
-- **Solidity Community** - For educational resources
-- **All Contributors** - Thank you for improving this tutorial!
+This project is for educational purposes. Always conduct thorough security audits before deploying smart contracts to mainnet with real funds.
 
 ---
 
-## 📞 Support
+<div align="center">
 
-### Need Help?
+**Made with 💜 by [CWT](https://cwt.build)**
 
-- 📺 **Watch the video tutorial:** [YouTube](https://youtube.com/@officialcwt)
-- 💬 **Join Discord:** [CWT Community](https://discord.com/invite/THq8mTmX)
-- 🐛 **Report bugs:** [GitHub Issues](https://github.com/cwtofficial/secretpay/issues)
-- 📧 **Email:** hello@cwt.build
-- 🌐 **Website:** [cwt.build](https://cwt.build)
+*Complete Smart Contract Development Workflow: Code → Deploy → Test*
 
-### FAQ
-
-**Q: Do I need cryptocurrency to start?**  
-A: No! We use free testnet ETH for learning. No real money required.
-
-**Q: How long does the tutorial take?**  
-A: 2-2.5 hours for the core contract + 30 minutes for optional frontend.
-
-**Q: Can I use this in production?**  
-A: This is for educational purposes. See [Security Considerations](#security-considerations) before using in production.
-
-**Q: What if I get stuck?**  
-A: Join our Discord community, comment on the YouTube video, or open a GitHub issue!
-
-**Q: Can I modify the code?**  
-A: Absolutely! This is MIT licensed - modify, extend, and share!
-
----
-
-## 🚀 Next Steps
-
-After completing this tutorial, try:
-
-1. **Add features:**
-
-   - Multiple recipients
-   - Partial refunds
-   - Password hints system
-   - ERC20 token support
-
-2. **Build similar projects:**
-
-   - Voting system
-   - Crowdfunding platform
-   - NFT marketplace
-   - DAO governance
-
-3. **Go deeper:**
-
-   - Learn Hardhat for testing
-   - Study gas optimization
-   - Explore Layer 2 solutions
-   - Get a security audit
-
-4. **Share your work:**
-   - Deploy to mainnet
-   - Write a blog post
-   - Create a video walkthrough
-   - Help others learn!
-
----
-
-## ⭐ Star This Repo!
-
-If this tutorial helped you, please star the repository to help others find it!
-
-[![Star on GitHub](https://img.shields.io/github/stars/cwtofficial/SecretPay?style=social)](https://github.com/cwtofficial/SecretPay)
-
----
-
-**Built with 💜 by [CWT](https://cwt.build)**
-
-_Techcrafting Ideas..._
-
----
-
-**Happy Coding! 🚀**
-
-_Questions? Reach out anytime - we're here to help!_
+</div>
