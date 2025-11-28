@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
     <!-- Google Material Icons -->
@@ -22,7 +22,7 @@
 
   <style>
     body {
-      font-family: "Outfit", sans-serif;
+      font-family: "Elms Sans", sans-serif;
     }
 
     .material-symbols-outlined {
@@ -33,7 +33,6 @@
         "opsz" 24;
     }
 
-    /* Floating ETH Animation */
     .eth-float {
       position: fixed;
       font-size: 3rem;
@@ -42,6 +41,13 @@
       pointer-events: none;
       z-index: 0;
       color: #9333ea;
+    }
+
+    /* Hide floating elements on mobile for cleaner look */
+    @media (max-width: 768px) {
+      .eth-float {
+        display: none;
+      }
     }
 
     .eth-float-1 {
@@ -136,6 +142,43 @@
     .lock-glow {
       animation: pulse-glow 2s ease-in-out infinite;
     }
+
+    /* Responsive icon sizes */
+    .responsive-icon-sm {
+      font-size: 20px;
+    }
+
+    .responsive-icon-md {
+      font-size: 24px;
+    }
+
+    .responsive-icon-lg {
+      font-size: 32px;
+    }
+
+    @media (min-width: 640px) {
+      .responsive-icon-sm {
+        font-size: 24px;
+      }
+      .responsive-icon-md {
+        font-size: 28px;
+      }
+      .responsive-icon-lg {
+        font-size: 36px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .responsive-icon-sm {
+        font-size: 28px;
+      }
+      .responsive-icon-md {
+        font-size: 32px;
+      }
+      .responsive-icon-lg {
+        font-size: 40px;
+      }
+    }
   </style>
 
   <body class="bg-gray-50 text-gray-800 overflow-x-hidden">
@@ -149,85 +192,115 @@
     <div class="eth-float eth-float-7">Ξ</div>
     <div class="eth-float eth-float-8">Ξ</div>
 
-    <div class="max-w-4xl mx-auto py-12 px-6">
+    <div class="max-w-4xl mx-auto py-6 sm:py-8 md:py-12 px-4 sm:px-6">
       <!-- Header -->
-      <div class="text-center mb-12">
-        <div class="inline-block mb-4">
+      <div class="text-center mb-8 sm:mb-10 md:mb-12">
+        <div class="inline-block mb-3 sm:mb-4">
           <span
             class="material-symbols-outlined lock-glow"
-            style="font-size: 4rem; color: #9333ea"
+            style="font-size: 3rem; color: #9333ea"
           >
             lock
           </span>
         </div>
-        <h1 class="text-4xl font-bold text-gray-900 mb-4">
+        <h1
+          class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 px-2"
+        >
           SecretPay: Password-Protected ETH Transfers
         </h1>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        <p
+          class="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4"
+        >
           Build a Smart Contract Escrow System with Password Protection
         </p>
         <div
-          class="mt-6 inline-flex items-center bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-medium"
+          class="mt-4 sm:mt-6 inline-flex items-center bg-purple-100 text-purple-800 px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium"
         >
-          <span class="material-symbols-outlined mr-1" style="font-size: 18px">
+          <span
+            class="material-symbols-outlined mr-1 text-base sm:text-lg"
+            style="font-size: 1rem"
+          >
             school
           </span>
-          Beginner-Friendly • Portfolio-Ready • Professional Testing
+          <span class="hidden sm:inline"
+            >Beginner-Friendly • Portfolio-Ready • Professional Testing</span
+          >
+          <span class="sm:hidden">Beginner-Friendly • Portfolio-Ready</span>
         </div>
       </div>
 
       <!-- What You'll Build -->
       <div
-        class="bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-200 rounded-lg p-6 mb-8"
+        class="bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-200 rounded-lg p-4 sm:p-6 mb-6 sm:mb-8"
       >
-        <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+        <h2
+          class="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 flex items-center"
+        >
           <span
             class="material-symbols-outlined mr-2"
-            style="color: #9333ea; font-size: 28px"
+            style="color: #9333ea; font-size: 24px"
           >
             target
           </span>
           What You'll Build
         </h2>
-        <p class="text-gray-700 mb-4">
+        <p class="text-sm sm:text-base text-gray-700 mb-4">
           A production-ready decentralized escrow smart contract where senders
           can transfer ETH to recipients locked behind a password. Recipients
           must know the secret password to claim their ETH. If unclaimed by the
           deadline, senders can withdraw their funds back. You'll deploy to
           testnet AND write professional tests!
         </p>
-        <div class="grid md:grid-cols-3 gap-4 mt-6">
-          <div class="bg-white p-4 rounded-lg border border-purple-200">
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 mt-4 sm:mt-6"
+        >
+          <div class="bg-white p-3 sm:p-4 rounded-lg border border-purple-200">
             <span
               class="material-symbols-outlined text-purple-600"
-              style="font-size: 36px"
+              style="font-size: 28px"
             >
               send
             </span>
-            <h3 class="font-semibold text-gray-900 mb-1 mt-2">Send ETH</h3>
-            <p class="text-sm text-gray-600">
+            <h3
+              class="font-semibold text-gray-900 mb-1 mt-2 text-sm sm:text-base"
+            >
+              Send ETH
+            </h3>
+            <p class="text-xs sm:text-sm text-gray-600">
               Create password-protected transfers
             </p>
           </div>
-          <div class="bg-white p-4 rounded-lg border border-purple-200">
+          <div class="bg-white p-3 sm:p-4 rounded-lg border border-purple-200">
             <span
               class="material-symbols-outlined text-green-600"
-              style="font-size: 36px"
+              style="font-size: 28px"
             >
               lock_open
             </span>
-            <h3 class="font-semibold text-gray-900 mb-1 mt-2">Claim Funds</h3>
-            <p class="text-sm text-gray-600">Unlock with correct password</p>
+            <h3
+              class="font-semibold text-gray-900 mb-1 mt-2 text-sm sm:text-base"
+            >
+              Claim Funds
+            </h3>
+            <p class="text-xs sm:text-sm text-gray-600">
+              Unlock with correct password
+            </p>
           </div>
-          <div class="bg-white p-4 rounded-lg border border-purple-200">
+          <div
+            class="bg-white p-3 sm:p-4 rounded-lg border border-purple-200 sm:col-span-2 md:col-span-1"
+          >
             <span
               class="material-symbols-outlined text-amber-600"
-              style="font-size: 36px"
+              style="font-size: 28px"
             >
               schedule
             </span>
-            <h3 class="font-semibold text-gray-900 mb-1 mt-2">Refund</h3>
-            <p class="text-sm text-gray-600">
+            <h3
+              class="font-semibold text-gray-900 mb-1 mt-2 text-sm sm:text-base"
+            >
+              Refund
+            </h3>
+            <p class="text-xs sm:text-sm text-gray-600">
               Withdraw if unclaimed after deadline
             </p>
           </div>
@@ -236,72 +309,80 @@
 
       <!-- Use Cases -->
       <div
-        class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8"
+        class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6 mb-6 sm:mb-8"
       >
-        <h2 class="text-2xl font-semibold text-gray-900 mb-4 flex items-center">
+        <h2
+          class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4 flex items-center"
+        >
           <span
             class="material-symbols-outlined mr-2 text-yellow-500"
-            style="font-size: 28px"
+            style="font-size: 24px"
           >
             lightbulb
           </span>
           Real-World Use Cases
         </h2>
-        <div class="grid md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           <div class="flex items-start space-x-3">
             <span
-              class="material-symbols-outlined text-pink-500"
-              style="font-size: 32px"
+              class="material-symbols-outlined text-pink-500 flex-shrink-0"
+              style="font-size: 28px"
             >
               redeem
             </span>
             <div>
-              <h3 class="font-semibold text-gray-900">
+              <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
                 Crypto Gifts with Riddles
               </h3>
-              <p class="text-sm text-gray-600">
+              <p class="text-xs sm:text-sm text-gray-600">
                 Send ETH with a fun riddle as the password
               </p>
             </div>
           </div>
           <div class="flex items-start space-x-3">
             <span
-              class="material-symbols-outlined text-blue-600"
-              style="font-size: 32px"
+              class="material-symbols-outlined text-blue-600 flex-shrink-0"
+              style="font-size: 28px"
             >
               work
             </span>
             <div>
-              <h3 class="font-semibold text-gray-900">Freelance Escrow</h3>
-              <p class="text-sm text-gray-600">
+              <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
+                Freelance Escrow
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-600">
                 Release payment when work is completed
               </p>
             </div>
           </div>
           <div class="flex items-start space-x-3">
             <span
-              class="material-symbols-outlined text-green-600"
-              style="font-size: 32px"
+              class="material-symbols-outlined text-green-600 flex-shrink-0"
+              style="font-size: 28px"
             >
               school
             </span>
             <div>
-              <h3 class="font-semibold text-gray-900">Educational Rewards</h3>
-              <p class="text-sm text-gray-600">
+              <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
+                Educational Rewards
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-600">
                 Students earn crypto by solving challenges
               </p>
             </div>
           </div>
           <div class="flex items-start space-x-3">
             <span
-              class="material-symbols-outlined text-purple-600"
-              style="font-size: 32px"
+              class="material-symbols-outlined text-purple-600 flex-shrink-0"
+              style="font-size: 28px"
             >
               sports_esports
             </span>
             <div>
-              <h3 class="font-semibold text-gray-900">Gaming Treasure Hunts</h3>
-              <p class="text-sm text-gray-600">
+              <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
+                Gaming Treasure Hunts
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-600">
                 Hide crypto rewards in game quests
               </p>
             </div>
@@ -310,689 +391,832 @@
       </div>
 
       <!-- Tutorial Parts -->
-      <div class="space-y-8">
+      <div class="space-y-4 sm:space-y-6 md:space-y-8">
         <!-- Part 1 -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <div class="flex items-center mb-4">
+        <div
+          class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6"
+        >
+          <div
+            class="flex flex-col sm:flex-row sm:items-center mb-3 sm:mb-4 gap-2 sm:gap-0"
+          >
             <span
-              class="bg-indigo-100 text-indigo-800 text-sm font-semibold px-3 py-1 rounded-full mr-3"
+              class="bg-indigo-100 text-indigo-800 text-xs sm:text-sm font-semibold px-3 py-1 rounded-full sm:mr-3 w-fit"
               >Part 1</span
             >
-            <h2 class="text-2xl font-semibold text-gray-900">
+            <h2
+              class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900"
+            >
               Solidity Fundamentals & Setup
             </h2>
           </div>
-          <p class="text-gray-600 mb-4 text-sm flex items-center">
+          <p
+            class="text-gray-600 mb-3 sm:mb-4 text-xs sm:text-sm flex items-center"
+          >
             <span
               class="material-symbols-outlined mr-1"
-              style="font-size: 18px"
+              style="font-size: 16px"
             >
               schedule
             </span>
             20 minutes
           </p>
-          <ul class="space-y-2 text-gray-700">
+          <ul class="space-y-2 text-sm sm:text-base text-gray-700">
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-indigo-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-indigo-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Introduction to Smart Contracts & Solidity
+              <span>Introduction to Smart Contracts & Solidity</span>
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-indigo-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-indigo-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Setting up Remix IDE - Your browser-based development environment
+              <span
+                >Setting up Remix IDE - Your browser-based development
+                environment</span
+              >
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-indigo-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-indigo-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Basic Solidity syntax: pragma, contract structure
+              <span>Basic Solidity syntax: pragma, contract structure</span>
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-indigo-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-indigo-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Understanding state variables and data types (address, uint, bool)
+              <span
+                >Understanding state variables and data types (address, uint,
+                bool)</span
+              >
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-indigo-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-indigo-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Your first "Hello World" smart contract
+              <span>Your first "Hello World" smart contract</span>
             </li>
           </ul>
         </div>
 
         <!-- Part 2 -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <div class="flex items-center mb-4">
+        <div
+          class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6"
+        >
+          <div
+            class="flex flex-col sm:flex-row sm:items-center mb-3 sm:mb-4 gap-2 sm:gap-0"
+          >
             <span
-              class="bg-emerald-100 text-emerald-800 text-sm font-semibold px-3 py-1 rounded-full mr-3"
+              class="bg-emerald-100 text-emerald-800 text-xs sm:text-sm font-semibold px-3 py-1 rounded-full sm:mr-3 w-fit"
               >Part 2</span
             >
-            <h2 class="text-2xl font-semibold text-gray-900">
+            <h2
+              class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900"
+            >
               Building the Core Contract Structure
             </h2>
           </div>
-          <p class="text-gray-600 mb-4 text-sm flex items-center">
+          <p
+            class="text-gray-600 mb-3 sm:mb-4 text-xs sm:text-sm flex items-center"
+          >
             <span
               class="material-symbols-outlined mr-1"
-              style="font-size: 18px"
+              style="font-size: 16px"
             >
               schedule
             </span>
             35 minutes
           </p>
-          <ul class="space-y-2 text-gray-700">
+          <ul class="space-y-2 text-sm sm:text-base text-gray-700">
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-emerald-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-emerald-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Designing the Transfer struct (sender, receiver, amount, password
-              hash, deadline)
+              <span
+                >Designing the Transfer struct (sender, receiver, amount,
+                password hash, deadline)</span
+              >
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-emerald-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-emerald-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Using mappings to store transfers by unique ID
+              <span>Using mappings to store transfers by unique ID</span>
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-emerald-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-emerald-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Understanding
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm">payable</code>
-              functions - how to accept ETH
+              <span
+                >Understanding
+                <code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >payable</code
+                >
+                functions - how to accept ETH</span
+              >
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-emerald-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-emerald-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Creating the
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
-                >createTransfer()</code
+              <span
+                >Creating the
+                <code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >createTransfer()</code
+                >
+                function</span
               >
-              function
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-emerald-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-emerald-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Introduction to
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
-                >keccak256</code
+              <span
+                >Introduction to
+                <code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >keccak256</code
+                >
+                hashing for password security</span
               >
-              hashing for password security
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-emerald-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-emerald-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Storing hashed passwords on-chain (NOT plain text!)
+              <span>Storing hashed passwords on-chain (NOT plain text!)</span>
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-emerald-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-emerald-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Understanding
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
-                >block.timestamp</code
+              <span
+                >Understanding
+                <code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >block.timestamp</code
+                >
+                for deadlines</span
               >
-              for deadlines
             </li>
           </ul>
         </div>
 
         <!-- Part 3 -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <div class="flex items-center mb-4">
+        <div
+          class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6"
+        >
+          <div
+            class="flex flex-col sm:flex-row sm:items-center mb-3 sm:mb-4 gap-2 sm:gap-0"
+          >
             <span
-              class="bg-amber-100 text-amber-800 text-sm font-semibold px-3 py-1 rounded-full mr-3"
+              class="bg-amber-100 text-amber-800 text-xs sm:text-sm font-semibold px-3 py-1 rounded-full sm:mr-3 w-fit"
               >Part 3</span
             >
-            <h2 class="text-2xl font-semibold text-gray-900">
+            <h2
+              class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900"
+            >
               Implementing Claim & Refund Logic
             </h2>
           </div>
-          <p class="text-gray-600 mb-4 text-sm flex items-center">
+          <p
+            class="text-gray-600 mb-3 sm:mb-4 text-xs sm:text-sm flex items-center"
+          >
             <span
               class="material-symbols-outlined mr-1"
-              style="font-size: 18px"
+              style="font-size: 16px"
             >
               schedule
             </span>
             30 minutes
           </p>
-          <ul class="space-y-2 text-gray-700">
+          <ul class="space-y-2 text-sm sm:text-base text-gray-700">
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-amber-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-amber-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Building the
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
-                >claimTransfer()</code
-              >
-              function
-            </li>
-            <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-amber-500 mr-2"
-                style="font-size: 20px"
-              >
-                check_circle
-              </span>
-              Password verification: comparing hashed input with stored hash
-            </li>
-            <li class="flex items-start">
-              <span
-                class="material-symbols-outlined text-amber-500 mr-2"
-                style="font-size: 20px"
-              >
-                check_circle
-              </span>
-              Sending ETH from contract to recipient using
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
-                >payable(address).transfer()</code
+                >Building the
+                <code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >claimTransfer()</code
+                >
+                function</span
               >
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-amber-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-amber-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Building the
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
-                >refundTransfer()</code
+              <span
+                >Password verification: comparing hashed input with stored
+                hash</span
               >
-              function
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-amber-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-amber-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Access control: ensuring only the sender can refund
+              <span
+                >Sending ETH from contract to recipient using
+                <code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >payable(address).transfer()</code
+                ></span
+              >
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-amber-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-amber-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Time-based conditions: checking deadline expiry
+              <span
+                >Building the
+                <code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >refundTransfer()</code
+                >
+                function</span
+              >
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-amber-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-amber-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Error handling with
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
-                >require()</code
+              <span>Access control: ensuring only the sender can refund</span>
+            </li>
+            <li class="flex items-start">
+              <span
+                class="material-symbols-outlined text-amber-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
-              statements
+                check_circle
+              </span>
+              <span>Time-based conditions: checking deadline expiry</span>
+            </li>
+            <li class="flex items-start">
+              <span
+                class="material-symbols-outlined text-amber-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
+              >
+                check_circle
+              </span>
+              <span
+                >Error handling with
+                <code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >require()</code
+                >
+                statements</span
+              >
             </li>
           </ul>
         </div>
 
         <!-- Part 4 -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <div class="flex items-center mb-4">
+        <div
+          class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6"
+        >
+          <div
+            class="flex flex-col sm:flex-row sm:items-center mb-3 sm:mb-4 gap-2 sm:gap-0"
+          >
             <span
-              class="bg-cyan-100 text-cyan-800 text-sm font-semibold px-3 py-1 rounded-full mr-3"
+              class="bg-cyan-100 text-cyan-800 text-xs sm:text-sm font-semibold px-3 py-1 rounded-full sm:mr-3 w-fit"
               >Part 4</span
             >
-            <h2 class="text-2xl font-semibold text-gray-900">
+            <h2
+              class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900"
+            >
               Events, Modifiers & Security Best Practices
             </h2>
           </div>
-          <p class="text-gray-600 mb-4 text-sm flex items-center">
+          <p
+            class="text-gray-600 mb-3 sm:mb-4 text-xs sm:text-sm flex items-center"
+          >
             <span
               class="material-symbols-outlined mr-1"
-              style="font-size: 18px"
+              style="font-size: 16px"
             >
               schedule
             </span>
             25 minutes
           </p>
-          <ul class="space-y-2 text-gray-700">
+          <ul class="space-y-2 text-sm sm:text-base text-gray-700">
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-cyan-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-cyan-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Creating and emitting events (TransferCreated, TransferClaimed,
-              TransferRefunded)
+              <span
+                >Creating and emitting events (TransferCreated, TransferClaimed,
+                TransferRefunded)</span
+              >
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-cyan-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-cyan-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Why events matter: tracking activity off-chain
+              <span>Why events matter: tracking activity off-chain</span>
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-cyan-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-cyan-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Building custom modifiers for access control
+              <span>Building custom modifiers for access control</span>
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-cyan-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-cyan-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Preventing re-entrancy attacks (basic introduction)
+              <span>Preventing re-entrancy attacks (basic introduction)</span>
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-cyan-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-cyan-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Checks-Effects-Interactions pattern
+              <span>Checks-Effects-Interactions pattern</span>
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-cyan-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-cyan-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Gas optimization tips for your contract
+              <span>Gas optimization tips for your contract</span>
             </li>
           </ul>
         </div>
 
-        <!-- Part 5 - NEW: Setting Up Foundry -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <div class="flex items-center mb-4">
+        <!-- Part 5 -->
+        <div
+          class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6"
+        >
+          <div
+            class="flex flex-col sm:flex-row sm:items-center mb-3 sm:mb-4 gap-2 sm:gap-0"
+          >
             <span
-              class="bg-violet-100 text-violet-800 text-sm font-semibold px-3 py-1 rounded-full mr-3"
+              class="bg-violet-100 text-violet-800 text-xs sm:text-sm font-semibold px-3 py-1 rounded-full sm:mr-3 w-fit"
               >Part 5</span
             >
-            <h2 class="text-2xl font-semibold text-gray-900">
+            <h2
+              class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900"
+            >
               Professional Setup with Foundry
             </h2>
           </div>
-          <p class="text-gray-600 mb-4 text-sm flex items-center">
+          <p
+            class="text-gray-600 mb-3 sm:mb-4 text-xs sm:text-sm flex items-center"
+          >
             <span
               class="material-symbols-outlined mr-1"
-              style="font-size: 18px"
+              style="font-size: 16px"
             >
               schedule
             </span>
             20 minutes
           </p>
-          <ul class="space-y-2 text-gray-700">
+          <ul class="space-y-2 text-sm sm:text-base text-gray-700">
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-violet-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-violet-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              What is Foundry and why professional developers use it
+              <span
+                >What is Foundry and why professional developers use it</span
+              >
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-violet-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-violet-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Installing Foundry on Mac, Linux, and Windows (WSL)
+              <span>Installing Foundry on Mac, Linux, and Windows (WSL)</span>
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-violet-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-violet-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Running
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
-                >forge init</code
+              <span
+                >Running
+                <code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >forge init</code
+                >
+                to create project structure</span
               >
-              to create project structure
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-violet-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-violet-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Understanding Foundry project structure (src/, test/, script/)
+              <span
+                >Understanding Foundry project structure (src/, test/,
+                script/)</span
+              >
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-violet-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-violet-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Migrating SecretPay contract to Foundry
+              <span>Migrating SecretPay contract to Foundry</span>
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-violet-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-violet-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Compiling with
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
-                >forge build</code
+              <span
+                >Compiling with
+                <code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >forge build</code
+                ></span
               >
             </li>
           </ul>
         </div>
 
-        <!-- Part 6 - Deployment & Verification -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <div class="flex items-center mb-4">
+        <!-- Part 6 -->
+        <div
+          class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6"
+        >
+          <div
+            class="flex flex-col sm:flex-row sm:items-center mb-3 sm:mb-4 gap-2 sm:gap-0"
+          >
             <span
-              class="bg-rose-100 text-rose-800 text-sm font-semibold px-3 py-1 rounded-full mr-3"
+              class="bg-rose-100 text-rose-800 text-xs sm:text-sm font-semibold px-3 py-1 rounded-full sm:mr-3 w-fit"
               >Part 6</span
             >
-            <h2 class="text-2xl font-semibold text-gray-900">
+            <h2
+              class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900"
+            >
               Deployment & Verification
             </h2>
           </div>
-          <p class="text-gray-600 mb-4 text-sm flex items-center">
+          <p
+            class="text-gray-600 mb-3 sm:mb-4 text-xs sm:text-sm flex items-center"
+          >
             <span
               class="material-symbols-outlined mr-1"
-              style="font-size: 18px"
+              style="font-size: 16px"
             >
               schedule
             </span>
             20 minutes
           </p>
-          <ul class="space-y-2 text-gray-700">
+          <ul class="space-y-2 text-sm sm:text-base text-gray-700">
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-rose-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-rose-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Setting up MetaMask wallet
+              <span>Setting up MetaMask wallet</span>
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-rose-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-rose-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Getting testnet ETH from Sepolia faucet
+              <span>Getting testnet ETH from Sepolia faucet</span>
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-rose-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-rose-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Configuring Foundry for Sepolia deployment
+              <span>Configuring Foundry for Sepolia deployment</span>
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-rose-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-rose-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Writing deployment scripts with Foundry
+              <span>Writing deployment scripts with Foundry</span>
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-rose-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-rose-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Deploying to Ethereum Sepolia testnet using
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
-                >forge script</code
-              >
-            </li>
-            <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-rose-500 mr-2"
-                style="font-size: 20px"
-              >
-                check_circle
-              </span>
-              Verifying your contract on Etherscan with
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
-                >forge verify-contract</code
+                >Deploying to Ethereum Sepolia testnet using
+                <code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >forge script</code
+                ></span
               >
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-rose-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-rose-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Interacting with deployed contract via Etherscan
+              <span
+                >Verifying your contract on Etherscan with
+                <code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >forge verify-contract</code
+                ></span
+              >
+            </li>
+            <li class="flex items-start">
+              <span
+                class="material-symbols-outlined text-rose-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
+              >
+                check_circle
+              </span>
+              <span>Interacting with deployed contract via Etherscan</span>
             </li>
           </ul>
         </div>
 
-        <!-- Part 7 - Professional Testing -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <div class="flex items-center mb-4">
+        <!-- Part 7 -->
+        <div
+          class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6"
+        >
+          <div
+            class="flex flex-col sm:flex-row sm:items-center mb-3 sm:mb-4 gap-2 sm:gap-0"
+          >
             <span
-              class="bg-emerald-100 text-emerald-800 text-sm font-semibold px-3 py-1 rounded-full mr-3"
+              class="bg-emerald-100 text-emerald-800 text-xs sm:text-sm font-semibold px-3 py-1 rounded-full sm:mr-3 w-fit"
               >Part 7</span
             >
-            <h2 class="text-2xl font-semibold text-gray-900">
+            <h2
+              class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900"
+            >
               Professional Testing with Foundry
             </h2>
           </div>
-          <p class="text-gray-600 mb-4 text-sm flex items-center">
+          <p
+            class="text-gray-600 mb-3 sm:mb-4 text-xs sm:text-sm flex items-center"
+          >
             <span
               class="material-symbols-outlined mr-1"
-              style="font-size: 18px"
+              style="font-size: 16px"
             >
               schedule
             </span>
             35 minutes
           </p>
-          <ul class="space-y-2 text-gray-700">
+          <ul class="space-y-2 text-sm sm:text-base text-gray-700">
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-emerald-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-emerald-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Why testing matters: Learning from $1B+ in smart contract hacks
-            </li>
-            <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-emerald-500 mr-2"
-                style="font-size: 20px"
-              >
-                check_circle
-              </span>
-              Understanding the AAA (Arrange-Act-Assert) testing pattern
-            </li>
-            <li class="flex items-start">
-              <span
-                class="material-symbols-outlined text-emerald-500 mr-2"
-                style="font-size: 20px"
-              >
-                check_circle
-              </span>
-              Foundry testing fundamentals:
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm">setUp()</code
-              >, test functions, assertions
-            </li>
-            <li class="flex items-start">
-              <span
-                class="material-symbols-outlined text-emerald-500 mr-2"
-                style="font-size: 20px"
-              >
-                check_circle
-              </span>
-              Foundry cheat codes:
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
-                >vm.prank()</code
-              >,
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
-                >vm.warp()</code
-              >,
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
-                >vm.deal()</code
-              >,
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
-                >vm.expectRevert()</code
+                >Why testing matters: Learning from $1B+ in smart contract
+                hacks</span
               >
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-emerald-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-emerald-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Writing comprehensive tests for
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
-                >createTransfer()</code
-              >,
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
-                >claimTransfer()</code
-              >, and
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
-                >refundTransfer()</code
+              <span
+                >Understanding the AAA (Arrange-Act-Assert) testing
+                pattern</span
               >
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-emerald-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-emerald-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Testing happy paths, edge cases, and failure scenarios
-            </li>
-            <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-emerald-500 mr-2"
-                style="font-size: 20px"
-              >
-                check_circle
-              </span>
-              Event emission testing with
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
-                >vm.expectEmit()</code
+                >Foundry testing fundamentals:
+                <code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >setUp()</code
+                >, test functions, assertions</span
               >
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-emerald-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-emerald-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Security testing: Re-entrancy attack simulation
+              <span
+                >Foundry cheat codes:
+                <code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >vm.prank()</code
+                >,
+                <code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >vm.warp()</code
+                >,
+                <code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >vm.deal()</code
+                >,
+                <code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >vm.expectRevert()</code
+                ></span
+              >
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-emerald-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-emerald-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Fuzz testing with random inputs
+              <span
+                >Writing comprehensive tests for
+                <code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >createTransfer()</code
+                >,
+                <code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >claimTransfer()</code
+                >, and
+                <code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >refundTransfer()</code
+                ></span
+              >
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-emerald-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-emerald-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Running tests with
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm"
-                >forge test</code
+              <span
+                >Testing happy paths, edge cases, and failure scenarios</span
               >
-              and understanding test coverage
             </li>
             <li class="flex items-start">
               <span
-                class="material-symbols-outlined text-emerald-500 mr-2"
-                style="font-size: 20px"
+                class="material-symbols-outlined text-emerald-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
               >
                 check_circle
               </span>
-              Debugging failed tests with verbosity flags (<code
-                class="bg-gray-100 px-2 py-1 rounded text-sm"
-                >-vvvv</code
-              >)
+              <span
+                >Event emission testing with
+                <code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >vm.expectEmit()</code
+                ></span
+              >
+            </li>
+            <li class="flex items-start">
+              <span
+                class="material-symbols-outlined text-emerald-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
+              >
+                check_circle
+              </span>
+              <span>Security testing: Re-entrancy attack simulation</span>
+            </li>
+            <li class="flex items-start">
+              <span
+                class="material-symbols-outlined text-emerald-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
+              >
+                check_circle
+              </span>
+              <span>Fuzz testing with random inputs</span>
+            </li>
+            <li class="flex items-start">
+              <span
+                class="material-symbols-outlined text-emerald-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
+              >
+                check_circle
+              </span>
+              <span
+                >Running tests with
+                <code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >forge test</code
+                >
+                and understanding test coverage</span
+              >
+            </li>
+            <li class="flex items-start">
+              <span
+                class="material-symbols-outlined text-emerald-500 mr-2 flex-shrink-0"
+                style="font-size: 18px"
+              >
+                check_circle
+              </span>
+              <span
+                >Debugging failed tests with verbosity flags (<code
+                  class="bg-gray-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm"
+                  >-vvvv</code
+                >)</span
+              >
             </li>
           </ul>
         </div>
@@ -1000,130 +1224,144 @@
 
       <!-- Core Concepts Section -->
       <div
-        class="mt-12 bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg p-8"
+        class="mt-8 sm:mt-10 md:mt-12 bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg p-4 sm:p-6 md:p-8"
       >
         <h2
-          class="text-2xl font-bold text-gray-900 mb-6 text-center flex items-center justify-center"
+          class="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 text-center flex items-center justify-center flex-wrap gap-2"
         >
           <span
-            class="material-symbols-outlined mr-2 text-purple-600"
-            style="font-size: 32px"
+            class="material-symbols-outlined text-purple-600"
+            style="font-size: 28px"
           >
             military_tech
           </span>
-          Core Solidity Concepts You'll Master
+          <span>Core Solidity Concepts You'll Master</span>
         </h2>
-        <div class="grid md:grid-cols-2 gap-4">
-          <div class="flex items-start space-x-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+          <div class="flex items-start space-x-2 sm:space-x-3">
             <span
-              class="material-symbols-outlined text-green-600"
-              style="font-size: 24px"
+              class="material-symbols-outlined text-green-600 flex-shrink-0"
+              style="font-size: 22px"
             >
               check_circle
             </span>
             <div>
-              <h3 class="font-semibold text-gray-900">Payable Functions</h3>
-              <p class="text-sm text-gray-600">
+              <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
+                Payable Functions
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-600">
                 Accept and handle ETH in smart contracts
               </p>
             </div>
           </div>
-          <div class="flex items-start space-x-3">
+          <div class="flex items-start space-x-2 sm:space-x-3">
             <span
-              class="material-symbols-outlined text-green-600"
-              style="font-size: 24px"
+              class="material-symbols-outlined text-green-600 flex-shrink-0"
+              style="font-size: 22px"
             >
               check_circle
             </span>
             <div>
-              <h3 class="font-semibold text-gray-900">Cryptographic Hashing</h3>
-              <p class="text-sm text-gray-600">
+              <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
+                Cryptographic Hashing
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-600">
                 Using keccak256 for password security
               </p>
             </div>
           </div>
-          <div class="flex items-start space-x-3">
+          <div class="flex items-start space-x-2 sm:space-x-3">
             <span
-              class="material-symbols-outlined text-green-600"
-              style="font-size: 24px"
+              class="material-symbols-outlined text-green-600 flex-shrink-0"
+              style="font-size: 22px"
             >
               check_circle
             </span>
             <div>
-              <h3 class="font-semibold text-gray-900">Structs & Mappings</h3>
-              <p class="text-sm text-gray-600">
+              <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
+                Structs & Mappings
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-600">
                 Organize complex data efficiently
               </p>
             </div>
           </div>
-          <div class="flex items-start space-x-3">
+          <div class="flex items-start space-x-2 sm:space-x-3">
             <span
-              class="material-symbols-outlined text-green-600"
-              style="font-size: 24px"
+              class="material-symbols-outlined text-green-600 flex-shrink-0"
+              style="font-size: 22px"
             >
               check_circle
             </span>
             <div>
-              <h3 class="font-semibold text-gray-900">Events & Logging</h3>
-              <p class="text-sm text-gray-600">
+              <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
+                Events & Logging
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-600">
                 Track contract activity for frontends
               </p>
             </div>
           </div>
-          <div class="flex items-start space-x-3">
+          <div class="flex items-start space-x-2 sm:space-x-3">
             <span
-              class="material-symbols-outlined text-green-600"
-              style="font-size: 24px"
+              class="material-symbols-outlined text-green-600 flex-shrink-0"
+              style="font-size: 22px"
             >
               check_circle
             </span>
             <div>
-              <h3 class="font-semibold text-gray-900">Access Control</h3>
-              <p class="text-sm text-gray-600">
+              <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
+                Access Control
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-600">
                 Restrict functions to authorized users
               </p>
             </div>
           </div>
-          <div class="flex items-start space-x-3">
+          <div class="flex items-start space-x-2 sm:space-x-3">
             <span
-              class="material-symbols-outlined text-green-600"
-              style="font-size: 24px"
+              class="material-symbols-outlined text-green-600 flex-shrink-0"
+              style="font-size: 22px"
             >
               check_circle
             </span>
             <div>
-              <h3 class="font-semibold text-gray-900">Time-Based Logic</h3>
-              <p class="text-sm text-gray-600">
+              <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
+                Time-Based Logic
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-600">
                 Implement deadlines with block.timestamp
               </p>
             </div>
           </div>
-          <div class="flex items-start space-x-3">
+          <div class="flex items-start space-x-2 sm:space-x-3">
             <span
-              class="material-symbols-outlined text-green-600"
-              style="font-size: 24px"
+              class="material-symbols-outlined text-green-600 flex-shrink-0"
+              style="font-size: 22px"
             >
               check_circle
             </span>
             <div>
-              <h3 class="font-semibold text-gray-900">Professional Testing</h3>
-              <p class="text-sm text-gray-600">
+              <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
+                Professional Testing
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-600">
                 Write tests that prevent million-dollar bugs
               </p>
             </div>
           </div>
-          <div class="flex items-start space-x-3">
+          <div class="flex items-start space-x-2 sm:space-x-3">
             <span
-              class="material-symbols-outlined text-green-600"
-              style="font-size: 24px"
+              class="material-symbols-outlined text-green-600 flex-shrink-0"
+              style="font-size: 22px"
             >
               check_circle
             </span>
             <div>
-              <h3 class="font-semibold text-gray-900">
+              <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
                 Security Best Practices
               </h3>
-              <p class="text-sm text-gray-600">
+              <p class="text-xs sm:text-sm text-gray-600">
                 Prevent re-entrancy and common vulnerabilities
               </p>
             </div>
@@ -1132,182 +1370,222 @@
       </div>
 
       <!-- Tools Section -->
-      <div class="mt-12 bg-gray-900 text-white rounded-lg p-8">
+      <div
+        class="mt-8 sm:mt-10 md:mt-12 bg-gray-900 text-white rounded-lg p-4 sm:p-6 md:p-8"
+      >
         <h2
-          class="text-2xl font-bold mb-6 text-center flex items-center justify-center"
+          class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-center flex items-center justify-center flex-wrap gap-2"
         >
-          <span class="material-symbols-outlined mr-2" style="font-size: 32px">
+          <span class="material-symbols-outlined" style="font-size: 28px">
             construction
           </span>
-          Tools We'll Use
+          <span>Tools We'll Use</span>
         </h2>
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-6 text-center">
-          <div class="bg-gray-800 p-4 rounded-lg">
+        <div
+          class="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4 md:gap-6 text-center"
+        >
+          <div class="bg-gray-800 p-3 sm:p-4 rounded-lg">
             <span
               class="material-symbols-outlined text-orange-400"
-              style="font-size: 60px"
+              style="font-size: 40px"
             >
               code
             </span>
-            <h3 class="font-semibold mt-3">Remix IDE</h3>
-            <p class="text-sm text-gray-300">Browser-based Solidity editor</p>
+            <h3 class="font-semibold mt-2 sm:mt-3 text-sm sm:text-base">
+              Remix IDE
+            </h3>
+            <p class="text-xs sm:text-sm text-gray-300 hidden sm:block">
+              Browser-based Solidity editor
+            </p>
           </div>
-          <div class="bg-gray-800 p-4 rounded-lg">
+          <div class="bg-gray-800 p-3 sm:p-4 rounded-lg">
             <span
               class="material-symbols-outlined text-purple-400"
-              style="font-size: 60px"
+              style="font-size: 40px"
             >
               terminal
             </span>
-            <h3 class="font-semibold mt-3">Foundry</h3>
-            <p class="text-sm text-gray-300">Professional testing framework</p>
+            <h3 class="font-semibold mt-2 sm:mt-3 text-sm sm:text-base">
+              Foundry
+            </h3>
+            <p class="text-xs sm:text-sm text-gray-300 hidden sm:block">
+              Professional testing framework
+            </p>
           </div>
-          <div class="bg-gray-800 p-4 rounded-lg">
+          <div class="bg-gray-800 p-3 sm:p-4 rounded-lg">
             <span
               class="material-symbols-outlined text-orange-500"
-              style="font-size: 60px"
+              style="font-size: 40px"
             >
               account_balance_wallet
             </span>
-            <h3 class="font-semibold mt-3">MetaMask</h3>
-            <p class="text-sm text-gray-300">Web3 wallet</p>
+            <h3 class="font-semibold mt-2 sm:mt-3 text-sm sm:text-base">
+              MetaMask
+            </h3>
+            <p class="text-xs sm:text-sm text-gray-300 hidden sm:block">
+              Web3 wallet
+            </p>
           </div>
-          <div class="bg-gray-800 p-4 rounded-lg">
+          <div class="bg-gray-800 p-3 sm:p-4 rounded-lg">
             <span
               class="material-symbols-outlined text-blue-400"
-              style="font-size: 60px"
+              style="font-size: 40px"
             >
               search
             </span>
-            <h3 class="font-semibold mt-3">Etherscan</h3>
-            <p class="text-sm text-gray-300">Blockchain explorer</p>
+            <h3 class="font-semibold mt-2 sm:mt-3 text-sm sm:text-base">
+              Etherscan
+            </h3>
+            <p class="text-xs sm:text-sm text-gray-300 hidden sm:block">
+              Blockchain explorer
+            </p>
           </div>
-          <div class="bg-gray-800 p-4 rounded-lg">
+          <div
+            class="bg-gray-800 p-3 sm:p-4 rounded-lg col-span-2 md:col-span-1"
+          >
             <span
               class="material-symbols-outlined text-green-400"
-              style="font-size: 60px"
+              style="font-size: 40px"
             >
               currency_bitcoin
             </span>
-            <h3 class="font-semibold mt-3">Sepolia Testnet</h3>
-            <p class="text-sm text-gray-300">Test network</p>
+            <h3 class="font-semibold mt-2 sm:mt-3 text-sm sm:text-base">
+              Sepolia Testnet
+            </h3>
+            <p class="text-xs sm:text-sm text-gray-300 hidden sm:block">
+              Test network
+            </p>
           </div>
         </div>
       </div>
 
       <!-- What Makes This Special -->
       <div
-        class="mt-12 bg-white rounded-lg shadow-sm border border-gray-200 p-8"
+        class="mt-8 sm:mt-10 md:mt-12 bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6 md:p-8"
       >
         <h2
-          class="text-2xl font-bold text-gray-900 mb-6 text-center flex items-center justify-center"
+          class="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 text-center flex items-center justify-center flex-wrap gap-2"
         >
           <span
-            class="material-symbols-outlined mr-2 text-yellow-500"
-            style="font-size: 32px"
+            class="material-symbols-outlined text-yellow-500"
+            style="font-size: 28px"
           >
             star
           </span>
-          Why This Project is Perfect for Beginners
+          <span>Why This Project is Perfect for Beginners</span>
         </h2>
-        <div class="grid md:grid-cols-2 gap-6">
-          <div class="space-y-4">
-            <div class="flex items-start space-x-3">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          <div class="space-y-3 sm:space-y-4">
+            <div class="flex items-start space-x-2 sm:space-x-3">
               <span
-                class="material-symbols-outlined text-purple-600"
-                style="font-size: 32px"
+                class="material-symbols-outlined text-purple-600 flex-shrink-0"
+                style="font-size: 28px"
               >
                 target
               </span>
               <div>
-                <h3 class="font-semibold text-gray-900 mb-1">
+                <h3
+                  class="font-semibold text-gray-900 mb-1 text-sm sm:text-base"
+                >
                   Portfolio-Ready
                 </h3>
-                <p class="text-sm text-gray-600">
+                <p class="text-xs sm:text-sm text-gray-600">
                   A unique project that stands out - not just another token or
                   NFT. Includes professional testing!
                 </p>
               </div>
             </div>
-            <div class="flex items-start space-x-3">
+            <div class="flex items-start space-x-2 sm:space-x-3">
               <span
-                class="material-symbols-outlined text-blue-600"
-                style="font-size: 32px"
+                class="material-symbols-outlined text-blue-600 flex-shrink-0"
+                style="font-size: 28px"
               >
                 psychology
               </span>
               <div>
-                <h3 class="font-semibold text-gray-900 mb-1">
+                <h3
+                  class="font-semibold text-gray-900 mb-1 text-sm sm:text-base"
+                >
                   Teaches Core Concepts
                 </h3>
-                <p class="text-sm text-gray-600">
+                <p class="text-xs sm:text-sm text-gray-600">
                   Covers all fundamental Solidity patterns PLUS professional
                   testing in one project
                 </p>
               </div>
             </div>
-            <div class="flex items-start space-x-3">
+            <div class="flex items-start space-x-2 sm:space-x-3">
               <span
-                class="material-symbols-outlined text-red-600"
-                style="font-size: 32px"
+                class="material-symbols-outlined text-red-600 flex-shrink-0"
+                style="font-size: 28px"
               >
                 security
               </span>
               <div>
-                <h3 class="font-semibold text-gray-900 mb-1">
+                <h3
+                  class="font-semibold text-gray-900 mb-1 text-sm sm:text-base"
+                >
                   Security-Focused
                 </h3>
-                <p class="text-sm text-gray-600">
+                <p class="text-xs sm:text-sm text-gray-600">
                   Learn password hashing, re-entrancy protection, and testing
                   best practices early
                 </p>
               </div>
             </div>
           </div>
-          <div class="space-y-4">
-            <div class="flex items-start space-x-3">
+          <div class="space-y-3 sm:space-y-4">
+            <div class="flex items-start space-x-2 sm:space-x-3">
               <span
-                class="material-symbols-outlined text-green-600"
-                style="font-size: 32px"
+                class="material-symbols-outlined text-green-600 flex-shrink-0"
+                style="font-size: 28px"
               >
                 bolt
               </span>
               <div>
-                <h3 class="font-semibold text-gray-900 mb-1">Comprehensive</h3>
-                <p class="text-sm text-gray-600">
+                <h3
+                  class="font-semibold text-gray-900 mb-1 text-sm sm:text-base"
+                >
+                  Comprehensive
+                </h3>
+                <p class="text-xs sm:text-sm text-gray-600">
                   Complete workflow: code → deploy → verify → test like
                   professionals do
                 </p>
               </div>
             </div>
-            <div class="flex items-start space-x-3">
+            <div class="flex items-start space-x-2 sm:space-x-3">
               <span
-                class="material-symbols-outlined text-cyan-600"
-                style="font-size: 32px"
+                class="material-symbols-outlined text-cyan-600 flex-shrink-0"
+                style="font-size: 28px"
               >
                 public
               </span>
               <div>
-                <h3 class="font-semibold text-gray-900 mb-1">
+                <h3
+                  class="font-semibold text-gray-900 mb-1 text-sm sm:text-base"
+                >
                   Real-World Applicable
                 </h3>
-                <p class="text-sm text-gray-600">
+                <p class="text-xs sm:text-sm text-gray-600">
                   Multiple use cases from gifts to escrow to gaming
                 </p>
               </div>
             </div>
-            <div class="flex items-start space-x-3">
+            <div class="flex items-start space-x-2 sm:space-x-3">
               <span
-                class="material-symbols-outlined text-orange-600"
-                style="font-size: 32px"
+                class="material-symbols-outlined text-orange-600 flex-shrink-0"
+                style="font-size: 28px"
               >
                 school
               </span>
               <div>
-                <h3 class="font-semibold text-gray-900 mb-1">
+                <h3
+                  class="font-semibold text-gray-900 mb-1 text-sm sm:text-base"
+                >
                   100% Beginner-Friendly
                 </h3>
-                <p class="text-sm text-gray-600">
+                <p class="text-xs sm:text-sm text-gray-600">
                   No blockchain experience needed - we teach everything
                   including professional tools
                 </p>
@@ -1319,107 +1597,114 @@
 
       <!-- Prerequisites -->
       <div
-        class="mt-12 bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-8"
+        class="mt-8 sm:mt-10 md:mt-12 bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4 sm:p-6 md:p-8"
       >
         <h2
-          class="text-2xl font-bold text-gray-900 mb-6 text-center flex items-center justify-center"
+          class="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 text-center flex items-center justify-center flex-wrap gap-2"
         >
           <span
-            class="material-symbols-outlined mr-2 text-blue-600"
-            style="font-size: 32px"
+            class="material-symbols-outlined text-blue-600"
+            style="font-size: 28px"
           >
             checklist
           </span>
-          Prerequisites
+          <span>Prerequisites</span>
         </h2>
-        <div class="max-w-2xl mx-auto space-y-4">
-          <div class="flex items-start space-x-3">
+        <div class="max-w-2xl mx-auto space-y-3 sm:space-y-4">
+          <div class="flex items-start space-x-2 sm:space-x-3">
             <span
-              class="material-symbols-outlined text-green-600"
-              style="font-size: 28px"
+              class="material-symbols-outlined text-green-600 flex-shrink-0"
+              style="font-size: 24px"
             >
               check_circle
             </span>
             <div>
-              <h3 class="font-semibold text-gray-900">
+              <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
                 Basic Programming Knowledge
               </h3>
-              <p class="text-sm text-gray-600">
+              <p class="text-xs sm:text-sm text-gray-600">
                 Familiarity with any programming language (JavaScript, Python,
                 etc.)
               </p>
             </div>
           </div>
-          <div class="flex items-start space-x-3">
+          <div class="flex items-start space-x-2 sm:space-x-3">
             <span
-              class="material-symbols-outlined text-green-600"
-              style="font-size: 28px"
+              class="material-symbols-outlined text-green-600 flex-shrink-0"
+              style="font-size: 24px"
             >
               check_circle
             </span>
             <div>
-              <h3 class="font-semibold text-gray-900">
+              <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
                 A Web Browser & Terminal
               </h3>
-              <p class="text-sm text-gray-600">
+              <p class="text-xs sm:text-sm text-gray-600">
                 Chrome, Firefox, or Brave + Command line access
               </p>
             </div>
           </div>
-          <div class="flex items-start space-x-3">
+          <div class="flex items-start space-x-2 sm:space-x-3">
             <span
-              class="material-symbols-outlined text-blue-600"
-              style="font-size: 28px"
+              class="material-symbols-outlined text-blue-600 flex-shrink-0"
+              style="font-size: 24px"
             >
               radio_button_unchecked
             </span>
             <div>
-              <h3 class="font-semibold text-gray-900">MetaMask (Optional)</h3>
-              <p class="text-sm text-gray-600">
+              <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
+                MetaMask (Optional)
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-600">
                 Only needed for testnet deployment - we'll set it up together
               </p>
             </div>
           </div>
         </div>
         <div
-          class="mt-6 p-4 bg-white border border-blue-300 rounded-lg text-center"
+          class="mt-4 sm:mt-6 p-3 sm:p-4 bg-white border border-blue-300 rounded-lg text-center"
         >
           <p
-            class="text-gray-800 font-semibold flex items-center justify-center"
+            class="text-gray-800 font-semibold flex items-center justify-center flex-wrap gap-2 text-sm sm:text-base"
           >
             <span
-              class="material-symbols-outlined mr-2 text-yellow-500"
-              style="font-size: 24px"
+              class="material-symbols-outlined text-yellow-500 flex-shrink-0"
+              style="font-size: 22px"
             >
               bolt
             </span>
-            Zero blockchain experience required - we start from scratch!
+            <span
+              >Zero blockchain experience required - we start from
+              scratch!</span
+            >
           </p>
         </div>
       </div>
 
       <!-- CTA Section -->
       <div
-        class="mt-12 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg p-8 text-center"
+        class="mt-8 sm:mt-10 md:mt-12 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg p-6 sm:p-8 text-center"
       >
-        <h2 class="text-3xl font-bold mb-4 flex items-center justify-center">
-          <span class="material-symbols-outlined mr-2" style="font-size: 36px">
+        <h2
+          class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 flex items-center justify-center flex-wrap gap-2"
+        >
+          <span class="material-symbols-outlined" style="font-size: 32px">
             rocket_launch
           </span>
-          Ready to Build Your First DeFi Project?
+          <span>Ready to Build Your First DeFi Project?</span>
         </h2>
-        <p class="text-lg mb-6 opacity-90">
+        <p class="text-sm sm:text-base md:text-lg mb-4 sm:mb-6 opacity-90">
           Start building password-protected ETH transfers, master Solidity
           fundamentals, and learn professional testing with Foundry
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
           <a
             href="https://youtube.com/@officialcwt"
-            class="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition flex items-center justify-center"
+            class="bg-white text-purple-600 px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition flex items-center justify-center text-sm sm:text-base"
           >
             <span
               class="material-symbols-outlined mr-2"
-              style="font-size: 24px"
+              style="font-size: 22px"
             >
               play_circle
             </span>
@@ -1427,11 +1712,11 @@
           </a>
           <a
             href="https://github.com/cwtofficial"
-            class="bg-purple-800 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-900 transition border-2 border-purple-400 flex items-center justify-center"
+            class="bg-purple-800 text-white px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-purple-900 transition border-2 border-purple-400 flex items-center justify-center text-sm sm:text-base"
           >
             <span
               class="material-symbols-outlined mr-2"
-              style="font-size: 24px"
+              style="font-size: 22px"
             >
               code
             </span>
@@ -1439,32 +1724,32 @@
           </a>
         </div>
         <div
-          class="mt-6 flex items-center justify-center space-x-6 text-sm opacity-90 flex-wrap"
+          class="mt-4 sm:mt-6 flex items-center justify-center flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm opacity-90"
         >
           <span class="flex items-center">
             <span
               class="material-symbols-outlined mr-1"
-              style="font-size: 18px"
+              style="font-size: 16px"
             >
               star
             </span>
             100% Free
           </span>
-          <span>•</span>
+          <span class="hidden sm:inline">•</span>
           <span class="flex items-center">
             <span
               class="material-symbols-outlined mr-1"
-              style="font-size: 18px"
+              style="font-size: 16px"
             >
               school
             </span>
             Beginner Friendly
           </span>
-          <span>•</span>
+          <span class="hidden sm:inline">•</span>
           <span class="flex items-center">
             <span
               class="material-symbols-outlined mr-1"
-              style="font-size: 18px"
+              style="font-size: 16px"
             >
               verified
             </span>
@@ -1474,14 +1759,22 @@
       </div>
 
       <!-- Footer Note -->
-      <div class="mt-8 text-center text-gray-500">
-        <p class="text-sm flex items-center justify-center">
-          <span class="material-symbols-outlined mr-1" style="font-size: 18px">
+      <div class="mt-6 sm:mt-8 text-center text-gray-500">
+        <p
+          class="text-xs sm:text-sm flex items-center justify-center flex-wrap gap-1"
+        >
+          <span
+            class="material-symbols-outlined flex-shrink-0"
+            style="font-size: 16px"
+          >
             target
           </span>
-          Complete Smart Contract Development Workflow: Code → Deploy → Test
+          <span
+            >Complete Smart Contract Development Workflow: Code → Deploy →
+            Test</span
+          >
         </p>
-        <p class="text-sm mt-2">
+        <p class="text-xs sm:text-sm mt-2">
           Built By
           <a
             href="https://cwt.build"
